@@ -1,0 +1,375 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mohammed Mubarak | ML Engineer & Freelancer</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Playfair+Display:wght@700;800;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <!-- Background Animation -->
+    <div class="bg-animation">
+        <div class="orb orb-1"></div>
+        <div class="orb orb-2"></div>
+        <div class="orb orb-3"></div>
+    </div>
+
+    <!-- Particles -->
+    <div class="particles" id="particles"></div>
+
+    <!-- Navigation -->
+    <nav class="navbar" id="navbar">
+        <div class="nav-logo">MM</div>
+        <ul class="nav-links" id="navLinks">
+            <li><a href="#home">Home</a></li>
+            <li><a href="#about">About</a></li>
+            <li><a href="#projects">Projects</a></li>
+            <li><a href="#services">Services</a></li>
+            <li><a href="#contact">Contact</a></li>
+            <li>
+                <div class="user-badge" id="userBadge">
+                    <span id="userName">Admin</span>
+                    <button class="logout-btn" onclick="logout()">Logout</button>
+                </div>
+            </li>
+        </ul>
+        <div class="hamburger" id="hamburger" onclick="toggleMenu()">
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero" id="home">
+        <div class="hero-content">
+            <div class="hero-text">
+                <div class="hero-badge">
+                    <span class="dot"></span>
+                    Available for Freelance
+                </div>
+                <h1 class="hero-title">
+                    Hi, I'm <span class="highlight">Mohammed</span><br>Mubarak
+                </h1>
+                <p class="hero-subtitle">Machine Learning Engineer & AI Specialist</p>
+                <p class="hero-description">
+                    Computer Science graduate (CGPA 8.9/10) with hands-on experience in Machine Learning, Deep Learning, Python, and Computer Vision. Published researcher with 100+ LeetCode problems solved.
+                </p>
+                <div class="hero-buttons">
+                    <a href="https://wa.me/917569319827?text=Hi%20Mohammed,%20I'm%20interested%20in%20your%20freelance%20services" target="_blank" class="btn-primary">
+                        <i class="fab fa-whatsapp"></i> Hire Me
+                    </a>
+                    <a href="https://github.com/mubarak6969" target="_blank" class="btn-secondary">
+                        <i class="fab fa-github"></i> GitHub
+                    </a>
+                </div>
+                <div class="hero-stats">
+                    <div class="stat-item">
+                        <div class="stat-number">10+</div>
+                        <div class="stat-label">Projects</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-number">92%</div>
+                        <div class="stat-label">Accuracy</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-number">100+</div>
+                        <div class="stat-label">LeetCode</div>
+                    </div>
+                </div>
+            </div>
+            <div class="hero-image">
+                <div class="hero-image-wrapper">
+                    <img src="profile.jpg" alt="Mohammed Mubarak" id="heroImage" onerror="this.src='https://via.placeholder.com/380x380/D4AF37/ffffff?text=MM'">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section class="section" id="about">
+        <div class="section-header reveal">
+            <span class="section-label">About Me</span>
+            <h2 class="section-title">Know Me Better</h2>
+            <p class="section-subtitle">Passionate about building intelligent systems</p>
+        </div>
+        <div class="about-grid">
+            <div class="about-text reveal">
+                <h3>Machine Learning Engineer from India</h3>
+                <p>I'm a Computer Science graduate (CGPA 8.9/10) with strong foundations in ML, DSA, and software engineering. I specialize in building end-to-end deep learning systems and computer vision applications.</p>
+                <p>Published researcher with experience in ECG signal processing, facial recognition systems, and real-time web applications. I'm passionate about leveraging AI to solve complex problems.</p>
+                <div class="about-info">
+                    <div class="info-item">
+                        <i class="fas fa-graduation-cap"></i>
+                        <span>B.Tech CSE (8.9 CGPA)</span>
+                    </div>
+                    <div class="info-item">
+                        <i class="fas fa-map-marker-alt"></i>
+                        <span>Tirunelveli, Tamil Nadu</span>
+                    </div>
+                    <div class="info-item">
+                        <i class="fas fa-envelope"></i>
+                        <span>mubarak7842a@gmail.com</span>
+                    </div>
+                    <div class="info-item">
+                        <i class="fas fa-phone"></i>
+                        <span>+91 7569319827</span>
+                    </div>
+                </div>
+            </div>
+            <div class="skills-grid reveal">
+                <div class="glass-card skill-card">
+                    <i class="fas fa-brain"></i>
+                    <h4>Machine Learning</h4>
+                    <p>TensorFlow, Keras, Scikit-learn</p>
+                </div>
+                <div class="glass-card skill-card">
+                    <i class="fas fa-eye"></i>
+                    <h4>Computer Vision</h4>
+                    <p>OpenCV, CNN, R-CNN</p>
+                </div>
+                <div class="glass-card skill-card">
+                    <i class="fas fa-code"></i>
+                    <h4>Python Development</h4>
+                    <p>Flask, Streamlit, REST APIs</p>
+                </div>
+                <div class="glass-card skill-card">
+                    <i class="fas fa-database"></i>
+                    <h4>Data Science</h4>
+                    <p>Pandas, NumPy, SQL</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Projects Section -->
+    <section class="section" id="projects">
+        <div class="section-header reveal">
+            <span class="section-label">My Work</span>
+            <h2 class="section-title">Featured Projects</h2>
+            <p class="section-subtitle">Some of my recent work</p>
+        </div>
+        <div class="projects-grid" id="projectsGrid">
+            <!-- Projects will be loaded here -->
+        </div>
+    </section>
+
+    <!-- Services Section -->
+    <section class="section" id="services">
+        <div class="section-header reveal">
+            <span class="section-label">What I Offer</span>
+            <h2 class="section-title">My Services</h2>
+            <p class="section-subtitle">Professional solutions for your needs</p>
+        </div>
+        <div class="services-grid">
+            <div class="glass-card service-card reveal">
+                <div class="service-icon">
+                    <i class="fas fa-robot"></i>
+                </div>
+                <h3>ML Model Development</h3>
+                <p>Custom machine learning models for classification, prediction, and automation tasks with high accuracy.</p>
+            </div>
+            <div class="glass-card service-card reveal">
+                <div class="service-icon">
+                    <i class="fas fa-eye"></i>
+                </div>
+                <h3>Computer Vision</h3>
+                <p>Image processing, object detection, facial recognition, and real-time video analysis solutions.</p>
+            </div>
+            <div class="glass-card service-card reveal">
+                <div class="service-icon">
+                    <i class="fas fa-chart-line"></i>
+                </div>
+                <h3>Data Analysis</h3>
+                <p>Comprehensive data preprocessing, feature engineering, and visualization for informed decision-making.</p>
+            </div>
+            <div class="glass-card service-card reveal">
+                <div class="service-icon">
+                    <i class="fas fa-globe"></i>
+                </div>
+                <h3>Web Development</h3>
+                <p>Full-stack web applications with Flask, REST APIs, and modern frontend technologies.</p>
+            </div>
+            <div class="glass-card service-card reveal">
+                <div class="service-icon">
+                    <i class="fas fa-heartbeat"></i>
+                </div>
+                <h3>Healthcare AI</h3>
+                <p>Medical signal processing, ECG analysis, and healthcare-focused deep learning applications.</p>
+            </div>
+            <div class="glass-card service-card reveal">
+                <div class="service-icon">
+                    <i class="fas fa-rocket"></i>
+                </div>
+                <h3>Model Deployment</h3>
+                <p>End-to-end deployment of ML models with real-time prediction capabilities and monitoring.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section class="section" id="contact">
+        <div class="section-header reveal">
+            <span class="section-label">Get In Touch</span>
+            <h2 class="section-title">Let's Work Together</h2>
+            <p class="section-subtitle">Have a project in mind? Let's discuss</p>
+        </div>
+        <div class="contact-container">
+            <div class="contact-info reveal">
+                <h3>Let's create something amazing</h3>
+                <p>I'm always open to discussing new projects, creative ideas, or opportunities to be part of your vision. Feel free to reach out!</p>
+                <div class="contact-details">
+                    <div class="contact-item">
+                        <div class="contact-item-icon">
+                            <i class="fas fa-envelope"></i>
+                        </div>
+                        <div class="contact-item-text">
+                            <h4>Email</h4>
+                            <p>mubarak7842a@gmail.com</p>
+                        </div>
+                    </div>
+                    <div class="contact-item">
+                        <div class="contact-item-icon">
+                            <i class="fas fa-phone"></i>
+                        </div>
+                        <div class="contact-item-text">
+                            <h4>Phone</h4>
+                            <p>+91 7569319827</p>
+                        </div>
+                    </div>
+                    <div class="contact-item">
+                        <div class="contact-item-icon">
+                            <i class="fas fa-map-marker-alt"></i>
+                        </div>
+                        <div class="contact-item-text">
+                            <h4>Location</h4>
+                            <p>Tirunelveli, Tamil Nadu, India</p>
+                        </div>
+                    </div>
+                    <div class="contact-item">
+                        <div class="contact-item-icon">
+                            <i class="fab fa-whatsapp"></i>
+                        </div>
+                        <div class="contact-item-text">
+                            <h4>WhatsApp</h4>
+                            <p><a href="https://wa.me/917569319827" target="_blank">+91 7569319827</a></p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <form class="contact-form glass-card reveal" onsubmit="handleWhatsAppContact(event)">
+                <div class="form-group">
+                    <input type="text" id="contactName" placeholder="Your Name" required>
+                </div>
+                <div class="form-group">
+                    <input type="email" id="contactEmail" placeholder="Your Email" required>
+                </div>
+                <div class="form-group">
+                    <input type="text" id="contactSubject" placeholder="Subject">
+                </div>
+                <div class="form-group">
+                    <textarea id="contactMessage" placeholder="Your Message" required></textarea>
+                </div>
+                <button type="submit" class="btn-primary" style="width: 100%; justify-content: center;">
+                    <i class="fab fa-whatsapp"></i> Send via WhatsApp
+                </button>
+            </form>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-social">
+            <a href="https://github.com/mubarak6969" target="_blank"><i class="fab fa-github"></i></a>
+            <a href="https://www.linkedin.com/in/mohammed-mubarak-0522a1257/" target="_blank"><i class="fab fa-linkedin-in"></i></a>
+            <a href="https://wa.me/917569319827" target="_blank"><i class="fab fa-whatsapp"></i></a>
+            <a href="mailto:mubarak7842a@gmail.com"><i class="fas fa-envelope"></i></a>
+        </div>
+        <p>&copy; 2025 Mohammed Mubarak. All rights reserved. Built with ❤️ 
+           <span style="cursor: pointer; opacity: 0.3; font-size: 0.8rem; margin-left: 10px;" onclick="secretAdminLogin()" title="Admin Access">⚙️</span>
+        </p>
+    </footer>
+
+    <!-- Add Project Modal -->
+    <div class="modal-overlay" id="projectModal">
+        <div class="modal" style="max-width: 550px;">
+            <div class="modal-close" onclick="closeModal('project')">
+                <i class="fas fa-times"></i>
+            </div>
+            <h2>Add New Project</h2>
+            <p class="modal-subtitle">Showcase your work</p>
+            <form class="modal-form" onsubmit="handleAddProject(event)">
+                <input type="text" placeholder="Project Title" id="projTitle" required>
+                <input type="text" placeholder="Project Category (e.g., ML, Web, CV)" id="projCategory" required>
+                <textarea placeholder="Project Description" id="projDesc" required></textarea>
+                <input type="text" placeholder="Technologies (comma separated)" id="projTech" required>
+                <input type="url" placeholder="GitHub Repository Link" id="projGithub" required>
+                <input type="text" placeholder="Live Demo Link (or 'Coming Soon')" id="projDemo">
+                <select id="projIcon">
+                    <option value="fa-brain">🧠 Machine Learning</option>
+                    <option value="fa-eye">👁️ Computer Vision</option>
+                    <option value="fa-code">💻 Web Development</option>
+                    <option value="fa-database">🗄️ Data Science</option>
+                    <option value="fa-robot">🤖 AI/Automation</option>
+                    <option value="fa-heartbeat">❤️ Healthcare AI</option>
+                </select>
+                <button type="submit" class="modal-submit">Add Project</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Edit Project Modal -->
+    <div class="modal-overlay" id="editProjectModal">
+        <div class="modal" style="max-width: 550px;">
+            <div class="modal-close" onclick="closeModal('editProject')">
+                <i class="fas fa-times"></i>
+            </div>
+            <h2>Edit Project</h2>
+            <p class="modal-subtitle">Update project details</p>
+            <form class="modal-form" onsubmit="handleEditProject(event)">
+                <input type="hidden" id="editProjId">
+                <input type="text" placeholder="Project Title" id="editProjTitle" required>
+                <input type="text" placeholder="Project Category" id="editProjCategory" required>
+                <textarea placeholder="Project Description" id="editProjDesc" required></textarea>
+                <input type="text" placeholder="Technologies (comma separated)" id="editProjTech" required>
+                <input type="url" placeholder="GitHub Repository Link" id="editProjGithub" required>
+                <input type="text" placeholder="Live Demo Link" id="editProjDemo">
+                <select id="editProjIcon">
+                    <option value="fa-brain">🧠 Machine Learning</option>
+                    <option value="fa-eye">👁️ Computer Vision</option>
+                    <option value="fa-code"> Web Development</option>
+                    <option value="fa-database">🗄️ Data Science</option>
+                    <option value="fa-robot">🤖 AI/Automation</option>
+                    <option value="fa-heartbeat">❤️ Healthcare AI</option>
+                </select>
+                <button type="submit" class="modal-submit">Update Project</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Admin Panel -->
+    <div class="admin-panel" id="adminPanel">
+        <div class="admin-menu" id="adminMenu">
+            <div class="admin-menu-item" onclick="openModal('project')">
+                <i class="fas fa-plus"></i> Add Project
+            </div>
+            <div class="admin-menu-item" onclick="toggleEditMode()">
+                <i class="fas fa-edit"></i> <span id="editModeText">Enable Edit Mode</span>
+            </div>
+        </div>
+        <button class="admin-btn" onclick="toggleAdminMenu()">
+            <i class="fas fa-cog"></i>
+        </button>
+    </div>
+
+    <!-- Toast -->
+    <div class="toast" id="toast">
+        <i class="fas fa-check-circle"></i>
+        <span id="toastMessage">Success!</span>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
