@@ -1,0 +1,305 @@
+/* Admin dashboard — reuses ICE tokens from style.css, kept functional and
+   simple rather than reproducing the public site's full motion system. */
+
+.admin-body {
+    min-height: 100vh;
+}
+
+.admin-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 20px 50px;
+    border-bottom: 1px solid var(--glass-border);
+    background: rgba(5, 7, 10, 0.7);
+    backdrop-filter: blur(20px);
+}
+
+.admin-badge {
+    display: inline-block;
+    margin-left: 10px;
+    padding: 3px 12px;
+    font-size: 0.7rem;
+    font-family: 'Inter', sans-serif;
+    font-weight: 600;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    color: var(--accent);
+    background: rgba(191, 228, 255, 0.1);
+    border: 1px solid rgba(191, 228, 255, 0.3);
+    border-radius: 20px;
+    vertical-align: middle;
+}
+
+.admin-main {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 60px 30px 100px;
+}
+
+.admin-panel-card {
+    max-width: 420px;
+    margin: 60px auto 0;
+    background: var(--glass-bg);
+    backdrop-filter: blur(20px);
+    border: 1px solid var(--glass-border);
+    border-radius: 20px;
+    padding: 40px;
+}
+
+.admin-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 2rem;
+    font-weight: 800;
+    margin-bottom: 8px;
+}
+
+.admin-subtitle {
+    color: var(--text-secondary);
+    font-size: 0.95rem;
+    margin-bottom: 28px;
+}
+
+.admin-form {
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+}
+
+.admin-form label,
+.modal-form label {
+    display: block;
+    font-size: 0.8rem;
+    color: var(--text-muted);
+    margin-bottom: 6px;
+    letter-spacing: 0.02em;
+}
+
+.admin-form input {
+    width: 100%;
+    padding: 13px 16px;
+    background: rgba(255, 255, 255, 0.04);
+    border: 1px solid var(--glass-border);
+    border-radius: 10px;
+    color: var(--text-primary);
+    font-family: 'Inter', sans-serif;
+    font-size: 0.95rem;
+    outline: none;
+    transition: border-color var(--dur-ui) var(--ease-ice), box-shadow var(--dur-ui) var(--ease-ice);
+}
+
+.admin-form input:focus {
+    border-color: var(--accent);
+    box-shadow: 0 0 0 3px rgba(191, 228, 255, 0.12);
+}
+
+.admin-error {
+    padding: 10px 14px;
+    border-radius: 10px;
+    background: rgba(255, 68, 68, 0.1);
+    border: 1px solid rgba(255, 68, 68, 0.3);
+    color: #ff8080;
+    font-size: 0.85rem;
+}
+
+.admin-message {
+    padding: 14px 18px;
+    border-radius: 12px;
+    background: rgba(191, 228, 255, 0.06);
+    border: 1px solid var(--glass-border);
+    color: var(--text-secondary);
+    font-size: 0.9rem;
+    margin-bottom: 24px;
+}
+
+.admin-toolbar {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 20px;
+    margin-bottom: 32px;
+    flex-wrap: wrap;
+}
+
+.admin-project-list {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+}
+
+.admin-project-row {
+    display: flex;
+    align-items: center;
+    gap: 18px;
+    padding: 18px 22px;
+    background: var(--glass-bg);
+    border: 1px solid var(--glass-border);
+    border-radius: 14px;
+    transition: border-color var(--dur-ui) var(--ease-ice);
+}
+
+.admin-project-row:hover {
+    border-color: rgba(191, 228, 255, 0.25);
+}
+
+.admin-project-icon {
+    flex: 0 0 44px;
+    width: 44px;
+    height: 44px;
+    border-radius: 12px;
+    background: linear-gradient(135deg, rgba(191, 228, 255, 0.12), rgba(191, 228, 255, 0.03));
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--accent);
+    font-size: 1.1rem;
+}
+
+.admin-project-info {
+    flex: 1;
+    min-width: 0;
+}
+
+.admin-project-info h3 {
+    font-size: 1rem;
+    margin-bottom: 4px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.admin-project-meta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    align-items: center;
+    font-size: 0.75rem;
+    color: var(--text-muted);
+}
+
+.admin-tag {
+    padding: 2px 10px;
+    border-radius: 20px;
+    border: 1px solid var(--glass-border);
+}
+
+.admin-tag.is-on {
+    color: var(--accent);
+    border-color: rgba(191, 228, 255, 0.35);
+    background: rgba(191, 228, 255, 0.08);
+}
+
+.admin-tag.is-off {
+    opacity: 0.55;
+}
+
+.admin-project-actions {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    flex: 0 0 auto;
+}
+
+.admin-icon-btn {
+    width: 34px;
+    height: 34px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(255, 255, 255, 0.04);
+    border: 1px solid var(--glass-border);
+    border-radius: 8px;
+    color: var(--text-secondary);
+    cursor: pointer;
+    transition: all var(--dur-micro) ease;
+    font-size: 0.85rem;
+}
+
+.admin-icon-btn:hover {
+    color: var(--text-primary);
+    border-color: rgba(191, 228, 255, 0.35);
+    background: rgba(191, 228, 255, 0.08);
+}
+
+.admin-icon-btn.is-danger:hover {
+    color: #ff8080;
+    border-color: rgba(255, 68, 68, 0.4);
+    background: rgba(255, 68, 68, 0.1);
+}
+
+.admin-icon-btn:disabled {
+    opacity: 0.3;
+    cursor: not-allowed;
+}
+
+.admin-empty {
+    text-align: center;
+    padding: 60px 20px;
+    color: var(--text-muted);
+}
+
+.admin-loading {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 100px 0;
+}
+
+.admin-loading[hidden] {
+    display: none;
+}
+
+.admin-spinner {
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    border: 2px solid var(--glass-border);
+    border-top-color: var(--accent);
+    animation: admin-spin 0.8s linear infinite;
+}
+
+@keyframes admin-spin {
+    to { transform: rotate(360deg); }
+}
+
+.admin-checkbox-row {
+    display: flex;
+    gap: 24px;
+    font-size: 0.9rem;
+    color: var(--text-secondary);
+}
+
+.admin-checkbox-row label {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    color: var(--text-secondary);
+    font-size: 0.9rem;
+}
+
+.admin-confirm-actions {
+    display: flex;
+    gap: 12px;
+    margin-top: 20px;
+}
+
+.admin-confirm-actions button {
+    flex: 1;
+    justify-content: center;
+}
+
+.admin-danger-btn {
+    background: linear-gradient(135deg, #ff6b6b, #ee4444) !important;
+    color: #fff !important;
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .admin-spinner { animation: none; }
+}
+
+@media (max-width: 640px) {
+    .admin-header { padding: 16px 20px; }
+    .admin-main { padding: 40px 16px 80px; }
+    .admin-project-row { flex-wrap: wrap; }
+    .admin-project-actions { width: 100%; justify-content: flex-end; }
+}

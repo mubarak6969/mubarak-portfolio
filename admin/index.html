@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="robots" content="noindex, nofollow">
+    <title>Admin | Mohammed Mubarak</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Playfair+Display:wght@700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="/style.css">
+    <link rel="stylesheet" href="/admin/admin.css">
+</head>
+<body class="admin-body">
+
+    <div class="bg-animation">
+        <div class="orb orb-1"></div>
+        <div class="orb orb-2"></div>
+    </div>
+
+    <header class="admin-header">
+        <div class="nav-logo">MM <span class="admin-badge">Admin</span></div>
+        <div id="headerActions"></div>
+    </header>
+
+    <main class="admin-main">
+
+        <!-- Login -->
+        <section id="loginView" class="admin-panel-card" hidden>
+            <h1 class="admin-title">Sign in</h1>
+            <p class="admin-subtitle">Project management is restricted to the site owner.</p>
+            <form id="loginForm" class="admin-form" autocomplete="off">
+                <div class="form-group">
+                    <label for="loginUsername">Username</label>
+                    <input type="text" id="loginUsername" name="username" required autocomplete="username">
+                </div>
+                <div class="form-group">
+                    <label for="loginPassword">Password</label>
+                    <input type="password" id="loginPassword" name="password" required autocomplete="current-password">
+                </div>
+                <div id="loginError" class="admin-error" hidden></div>
+                <button type="submit" class="btn-primary" id="loginSubmit">
+                    <i class="fas fa-lock"></i> Sign in
+                </button>
+            </form>
+        </section>
+
+        <!-- Dashboard -->
+        <section id="dashboardView" hidden>
+            <div class="admin-toolbar">
+                <div>
+                    <h1 class="admin-title">Projects</h1>
+                    <p class="admin-subtitle">Manage what appears on the public portfolio.</p>
+                </div>
+                <button class="btn-primary" id="addProjectBtn"><i class="fas fa-plus"></i> Add project</button>
+            </div>
+
+            <div id="dashboardMessage" class="admin-message" hidden></div>
+            <div id="projectList" class="admin-project-list"></div>
+            <div id="dashboardEmpty" class="admin-empty" hidden>No projects yet — add your first one above.</div>
+        </section>
+
+        <div id="loadingView" class="admin-loading">
+            <div class="admin-spinner"></div>
+        </div>
+
+    </main>
+
+    <!-- Project editor modal (add + edit share this) -->
+    <div class="modal-overlay" id="projectFormModal">
+        <div class="modal" style="max-width: 560px;">
+            <div class="modal-close" id="closeProjectForm" role="button" tabindex="0" aria-label="Close dialog">
+                <i class="fas fa-times"></i>
+            </div>
+            <h2 id="projectFormTitle">Add project</h2>
+            <p class="modal-subtitle">Fields marked * are required</p>
+            <form class="modal-form" id="projectForm">
+                <input type="hidden" id="pfId">
+                <label for="pfTitle">Title *</label>
+                <input type="text" id="pfTitle" required>
+                <label for="pfCategory">Category</label>
+                <input type="text" id="pfCategory" placeholder="e.g. Computer Vision">
+                <label for="pfDescription">Description *</label>
+                <textarea id="pfDescription" required></textarea>
+                <label for="pfTech">Technologies (comma separated)</label>
+                <input type="text" id="pfTech" placeholder="Python, Flask, OpenCV">
+                <label for="pfIcon">Icon</label>
+                <select id="pfIcon">
+                    <option value="fa-brain">🧠 Machine Learning</option>
+                    <option value="fa-eye">👁️ Computer Vision</option>
+                    <option value="fa-code">💻 Web Development</option>
+                    <option value="fa-database">🗄️ Data Science</option>
+                    <option value="fa-robot">🤖 AI/Automation</option>
+                    <option value="fa-heartbeat">❤️ Healthcare AI</option>
+                    <option value="fa-flask">🧪 Other</option>
+                </select>
+                <label for="pfGithub">GitHub URL</label>
+                <input type="url" id="pfGithub" placeholder="https://github.com/...">
+                <label for="pfDemo">Live demo link (or "Coming Soon")</label>
+                <input type="text" id="pfDemo">
+                <div class="admin-checkbox-row">
+                    <label><input type="checkbox" id="pfFeatured"> Featured</label>
+                    <label><input type="checkbox" id="pfPublished" checked> Published</label>
+                </div>
+                <div id="projectFormError" class="admin-error" hidden></div>
+                <button type="submit" class="modal-submit" id="projectFormSubmit">Save project</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Delete confirmation -->
+    <div class="modal-overlay" id="deleteConfirmModal">
+        <div class="modal" style="max-width: 420px;">
+            <h2>Delete this project?</h2>
+            <p class="modal-subtitle">This can't be undone.</p>
+            <div class="admin-confirm-actions">
+                <button class="btn-secondary" id="deleteCancelBtn">Cancel</button>
+                <button class="btn-primary admin-danger-btn" id="deleteConfirmBtn">Delete</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="toast" id="toast">
+        <i class="fas fa-check-circle"></i>
+        <span id="toastMessage">Success!</span>
+    </div>
+
+    <script src="/admin/admin.js"></script>
+</body>
+</html>

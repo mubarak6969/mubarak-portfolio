@@ -23,19 +23,13 @@
     <nav class="navbar" id="navbar">
         <div class="nav-logo">MM</div>
         <ul class="nav-links" id="navLinks">
-            <li><a href="#home">Home</a></li>
-            <li><a href="#about">About</a></li>
-            <li><a href="#projects">Projects</a></li>
-            <li><a href="#services">Services</a></li>
-            <li><a href="#contact">Contact</a></li>
-            <li>
-                <div class="user-badge" id="userBadge">
-                    <span id="userName">Admin</span>
-                    <button class="logout-btn" onclick="logout()">Logout</button>
-                </div>
-            </li>
+            <li><a href="#home" class="nav-link" data-section="home">Home</a></li>
+            <li><a href="#about" class="nav-link" data-section="about">About</a></li>
+            <li><a href="#projects" class="nav-link" data-section="projects">Projects</a></li>
+            <li><a href="#services" class="nav-link" data-section="services">Services</a></li>
+            <li><a href="#contact" class="nav-link" data-section="contact">Contact</a></li>
         </ul>
-        <div class="hamburger" id="hamburger" onclick="toggleMenu()">
+        <div class="hamburger" id="hamburger" onclick="toggleMenu()" role="button" tabindex="0" aria-label="Toggle navigation menu" aria-expanded="false" aria-controls="navLinks" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();toggleMenu();}">
             <span></span>
             <span></span>
             <span></span>
@@ -46,26 +40,34 @@
     <section class="hero" id="home">
         <div class="hero-content">
             <div class="hero-text">
-                <div class="hero-badge">
+                <div class="hero-badge" data-hero="badge">
                     <span class="dot"></span>
                     Available for Freelance
                 </div>
-                <h1 class="hero-title">
-                    Hi, I'm <span class="highlight">Mohammed</span><br>Mubarak
+                <h1 class="hero-title" data-hero="title">
+                    <span class="line-mask"><span class="line-inner">Hi, I'm <span class="highlight">Mohammed</span></span></span>
+                    <span class="line-mask"><span class="line-inner">Mubarak</span></span>
                 </h1>
-                <p class="hero-subtitle">Machine Learning Engineer & AI Specialist</p>
-                <p class="hero-description">
+                <p class="hero-subtitle" data-hero="subtitle">Machine Learning Engineer & AI Specialist</p>
+                <p class="hero-description" data-hero="description">
                     Computer Science graduate (CGPA 8.9/10) with hands-on experience in Machine Learning, Deep Learning, Python, and Computer Vision. Published researcher with 100+ LeetCode problems solved.
                 </p>
-                <div class="hero-buttons">
-                    <a href="https://wa.me/917569319827?text=Hi%20Mohammed,%20I'm%20interested%20in%20your%20freelance%20services" target="_blank" class="btn-primary">
+                <div class="hero-buttons" data-hero="buttons">
+                    <a href="https://wa.me/917569319827?text=Hi%20Mohammed,%20I'm%20interested%20in%20your%20freelance%20services" target="_blank" class="btn-primary magnetic">
                         <i class="fab fa-whatsapp"></i> Hire Me
                     </a>
-                    <a href="https://github.com/mubarak6969" target="_blank" class="btn-secondary">
+                    <a href="https://github.com/mubarak6969" target="_blank" class="btn-secondary magnetic">
                         <i class="fab fa-github"></i> GitHub
                     </a>
                 </div>
-                <div class="hero-stats">
+                <div class="hero-meta" data-hero="meta">
+                    <span>B.Tech CSE · 8.9 CGPA</span>
+                    <span class="hero-meta-sep">·</span>
+                    <span>Tirunelveli, India</span>
+                    <span class="hero-meta-sep">·</span>
+                    <span>Open to remote work</span>
+                </div>
+                <div class="hero-stats" data-hero="stats">
                     <div class="stat-item">
                         <div class="stat-number">10+</div>
                         <div class="stat-label">Projects</div>
@@ -80,9 +82,10 @@
                     </div>
                 </div>
             </div>
-            <div class="hero-image">
-                <div class="hero-image-wrapper">
-                    <img src="profile.jpg" alt="Mohammed Mubarak" id="heroImage" onerror="this.src='https://via.placeholder.com/380x380/D4AF37/ffffff?text=MM'">
+            <div class="hero-image" data-hero="image">
+                <div class="hero-image-wrapper" data-tilt>
+                    <div class="hero-image-sweep"></div>
+                    <img src="profile.jpg" alt="Mohammed Mubarak" id="heroImage" onerror="this.src='https://via.placeholder.com/380x380/0b0e13/bfe4ff?text=MM'">
                 </div>
             </div>
         </div>
@@ -281,88 +284,16 @@
 
     <!-- Footer -->
     <footer class="footer">
+        <div class="footer-brand">Mohammed Mubarak</div>
+        <p class="footer-tagline">Machine Learning Engineer &amp; AI Specialist</p>
         <div class="footer-social">
-            <a href="https://github.com/mubarak6969" target="_blank"><i class="fab fa-github"></i></a>
-            <a href="https://www.linkedin.com/in/mohammed-mubarak-0522a1257/" target="_blank"><i class="fab fa-linkedin-in"></i></a>
-            <a href="https://wa.me/917569319827" target="_blank"><i class="fab fa-whatsapp"></i></a>
-            <a href="mailto:mubarak7842a@gmail.com"><i class="fas fa-envelope"></i></a>
+            <a href="https://github.com/mubarak6969" target="_blank" aria-label="GitHub profile"><i class="fab fa-github"></i></a>
+            <a href="https://www.linkedin.com/in/mohammed-mubarak-0522a1257/" target="_blank" aria-label="LinkedIn profile"><i class="fab fa-linkedin-in"></i></a>
+            <a href="https://wa.me/917569319827" target="_blank" aria-label="Message on WhatsApp"><i class="fab fa-whatsapp"></i></a>
+            <a href="mailto:mubarak7842a@gmail.com" aria-label="Send an email"><i class="fas fa-envelope"></i></a>
         </div>
-        <p>&copy; 2025 Mohammed Mubarak. All rights reserved. Built with ❤️ 
-           <span style="cursor: pointer; opacity: 0.3; font-size: 0.8rem; margin-left: 10px;" onclick="secretAdminLogin()" title="Admin Access">⚙️</span>
-        </p>
+        <p>&copy; 2025 Mohammed Mubarak. All rights reserved. Built with ❤️</p>
     </footer>
-
-    <!-- Add Project Modal -->
-    <div class="modal-overlay" id="projectModal">
-        <div class="modal" style="max-width: 550px;">
-            <div class="modal-close" onclick="closeModal('project')">
-                <i class="fas fa-times"></i>
-            </div>
-            <h2>Add New Project</h2>
-            <p class="modal-subtitle">Showcase your work</p>
-            <form class="modal-form" onsubmit="handleAddProject(event)">
-                <input type="text" placeholder="Project Title" id="projTitle" required>
-                <input type="text" placeholder="Project Category (e.g., ML, Web, CV)" id="projCategory" required>
-                <textarea placeholder="Project Description" id="projDesc" required></textarea>
-                <input type="text" placeholder="Technologies (comma separated)" id="projTech" required>
-                <input type="url" placeholder="GitHub Repository Link" id="projGithub" required>
-                <input type="text" placeholder="Live Demo Link (or 'Coming Soon')" id="projDemo">
-                <select id="projIcon">
-                    <option value="fa-brain">🧠 Machine Learning</option>
-                    <option value="fa-eye">👁️ Computer Vision</option>
-                    <option value="fa-code">💻 Web Development</option>
-                    <option value="fa-database">🗄️ Data Science</option>
-                    <option value="fa-robot">🤖 AI/Automation</option>
-                    <option value="fa-heartbeat">❤️ Healthcare AI</option>
-                </select>
-                <button type="submit" class="modal-submit">Add Project</button>
-            </form>
-        </div>
-    </div>
-
-    <!-- Edit Project Modal -->
-    <div class="modal-overlay" id="editProjectModal">
-        <div class="modal" style="max-width: 550px;">
-            <div class="modal-close" onclick="closeModal('editProject')">
-                <i class="fas fa-times"></i>
-            </div>
-            <h2>Edit Project</h2>
-            <p class="modal-subtitle">Update project details</p>
-            <form class="modal-form" onsubmit="handleEditProject(event)">
-                <input type="hidden" id="editProjId">
-                <input type="text" placeholder="Project Title" id="editProjTitle" required>
-                <input type="text" placeholder="Project Category" id="editProjCategory" required>
-                <textarea placeholder="Project Description" id="editProjDesc" required></textarea>
-                <input type="text" placeholder="Technologies (comma separated)" id="editProjTech" required>
-                <input type="url" placeholder="GitHub Repository Link" id="editProjGithub" required>
-                <input type="text" placeholder="Live Demo Link" id="editProjDemo">
-                <select id="editProjIcon">
-                    <option value="fa-brain">🧠 Machine Learning</option>
-                    <option value="fa-eye">👁️ Computer Vision</option>
-                    <option value="fa-code"> Web Development</option>
-                    <option value="fa-database">🗄️ Data Science</option>
-                    <option value="fa-robot">🤖 AI/Automation</option>
-                    <option value="fa-heartbeat">❤️ Healthcare AI</option>
-                </select>
-                <button type="submit" class="modal-submit">Update Project</button>
-            </form>
-        </div>
-    </div>
-
-    <!-- Admin Panel -->
-    <div class="admin-panel" id="adminPanel">
-        <div class="admin-menu" id="adminMenu">
-            <div class="admin-menu-item" onclick="openModal('project')">
-                <i class="fas fa-plus"></i> Add Project
-            </div>
-            <div class="admin-menu-item" onclick="toggleEditMode()">
-                <i class="fas fa-edit"></i> <span id="editModeText">Enable Edit Mode</span>
-            </div>
-        </div>
-        <button class="admin-btn" onclick="toggleAdminMenu()">
-            <i class="fas fa-cog"></i>
-        </button>
-    </div>
 
     <!-- Toast -->
     <div class="toast" id="toast">
@@ -370,6 +301,9 @@
         <span id="toastMessage">Success!</span>
     </div>
 
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
     <script src="script.js"></script>
+    <script src="animations.js"></script>
 </body>
 </html>
