@@ -18,11 +18,10 @@ module.exports = withErrorHandling(async function handler(req, res) {
         return res.status(400).json({ error: '"published" must be a boolean' });
     }
 
-    const result = await query('UPDATE projects SET published = ? WHERE id = ?', [published, id]);
-    if (result.affectedRows === 0) {
+    const result = await query('UPDATE projects SET published = $1 WHERE id = $2 RETURNING *', [published, id]);
+    if (result.rowCount === 0) {
         return res.status(404).json({ error: 'Project not found' });
     }
 
-    const [row] = await query('SELECT * FROM projects WHERE id = ?', [id]);
-    return res.status(200).json({ project: serializeProject(row) });
+    return res.status(200).json({ project: serializeProject(result.rows[0]) });
 });

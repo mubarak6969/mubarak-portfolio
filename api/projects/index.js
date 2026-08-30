@@ -8,10 +8,10 @@ module.exports = withErrorHandling(async function handler(req, res) {
         // Admins (verified server-side, not by a client flag) see everything,
         // including unpublished drafts. Everyone else sees published only.
         const admin = await isAuthenticated(req);
-        const rows = admin
+        const result = admin
             ? await query('SELECT * FROM projects ORDER BY display_order ASC, id ASC')
             : await query('SELECT * FROM projects WHERE published = TRUE ORDER BY display_order ASC, id ASC');
-        return res.status(200).json({ projects: rows.map(serializeProject) });
+        return res.status(200).json({ projects: result.rows.map(serializeProject) });
     }
 
     if (req.method === 'POST') {
@@ -24,7 +24,8 @@ module.exports = withErrorHandling(async function handler(req, res) {
 
         const result = await query(
             `INSERT INTO projects (title, description, category, technologies, icon, github_url, demo, featured, published, display_order)
-             VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`,
+             VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10)
+             RETURNING *`,
             [
                 title.trim(),
                 description.trim(),
@@ -39,8 +40,7 @@ module.exports = withErrorHandling(async function handler(req, res) {
             ]
         );
 
-        const [row] = await query('SELECT * FROM projects WHERE id = ?', [result.insertId]);
-        return res.status(201).json({ project: serializeProject(row) });
+        return res.status(201).json({ project: serializeProject(result.rows[0]) });
     }
 
     res.setHeader('Allow', 'GET, POST');

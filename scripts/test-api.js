@@ -2,7 +2,7 @@
 // verify server-side authorization actually works: unauthenticated writes
 // must be rejected, authenticated writes must succeed, and public reads
 // must never include unpublished projects. Run with `npm run test:api`
-// against a real local database (see scripts/setup-local-db.sql).
+// against a real database — point DATABASE_URL at your Supabase project.
 require('../lib/load-env')();
 
 const loginHandler = require('../api/auth/login');

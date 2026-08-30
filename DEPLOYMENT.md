@@ -1,6 +1,6 @@
 # Deployment & Admin Setup
 
-This portfolio is a static frontend (`index.html`, `style.css`, `script.js`, `animations.js`) plus a small serverless API (`/api`) that reads and writes projects in a MySQL database, and a separate admin dashboard (`/admin`) for managing them. The public site never talks to the database directly — it only ever calls `/api/projects`, which enforces on the server who's allowed to write.
+This portfolio is a static frontend (`index.html`, `style.css`, `script.js`, `animations.js`) plus a small serverless API (`/api`) that reads and writes projects in a PostgreSQL database (Supabase), and a separate admin dashboard (`/admin`) for managing them. The public site never talks to the database directly — it only ever calls `/api/projects`, which enforces on the server who's allowed to write.
 
 ## Why not GitHub Pages
 
@@ -33,16 +33,26 @@ npm i -g vercel
 vercel dev
 ```
 
-## 2. Database setup
+## 2. Database setup (Supabase)
 
-Any MySQL 8+ compatible host works — this project only uses standard SQL, no provider-specific extensions. Options, roughly cheapest/simplest first:
+This project uses [Supabase](https://supabase.com)'s managed PostgreSQL — one project serves both local development and production, so there's no separate local database to install or maintain.
 
-- **PlanetScale**, **Railway**, or **Aiven** — all offer a MySQL instance with a connection string in the `mysql://user:pass@host:port/db` format `DATABASE_URL` expects.
-- Any VPS/managed MySQL you already run.
+1. Create a Supabase project (free tier is plenty for this).
+2. In the dashboard: **Project Settings → Database → Connection string → Transaction pooler**. Copy that connection string — it looks like `postgresql://postgres.[project-ref]:[password]@aws-0-[region].pooler.supabase.com:6543/postgres`.
+3. Paste it into `DATABASE_URL` in your local `.env` (never in this chat, never committed).
+4. Run the migration and seed once:
+   ```bash
+   npm run migrate   # creates the projects + admin_session tables and the updated_at trigger
+   npm run seed       # inserts the two existing portfolio projects, once
+   ```
 
-Whichever you choose, set `DATABASE_URL` to its connection string, then run `npm run migrate` (and `npm run seed` once) pointed at it.
+**Why the Transaction Pooler specifically:** Supabase's direct connection and Session Pooler both hold one Postgres connection per client, which serverless functions exhaust quickly since every invocation can open a new one. The Transaction Pooler (PgBouncer in transaction mode) hands connections back to the pool between queries, which is what serverless needs. This project's `pg` usage is already compatible with it — every parameterized query uses unnamed prepared statements (the default), never a named one, which is the one thing transaction-mode pooling doesn't support.
 
-For **local development**, `scripts/setup-local-db.sql` creates a dedicated low-privilege local user and database — see that file for the one-time setup command.
+**SSL:** Supabase requires SSL. `lib/db.js` enables it automatically for any non-localhost `DATABASE_URL` host.
+
+Because local dev and production point at the same kind of database (just different Supabase projects, or the same one if you prefer), there's no separate "local database setup" step beyond steps 1–4 above.
+
+**No Supabase SDK, no service-role key, no Supabase Auth.** This project connects to Supabase purely as a hosted PostgreSQL instance via the plain `pg` client and the connection string above — the same custom super-admin auth (scrypt + signed session cookie) from before is unchanged. There's no `@supabase/supabase-js`, no anon key, no service-role key anywhere in this codebase, and none is needed.
 
 ## 3. Admin setup
 
@@ -62,7 +72,7 @@ For production, copy the resulting `ADMIN_USERNAME`, `ADMIN_PASSWORD_HASH`, and 
 
 | Variable | Required | Description |
 |---|---|---|
-| `DATABASE_URL` | yes | MySQL connection string |
+| `DATABASE_URL` | yes | Supabase PostgreSQL connection string (Transaction Pooler) |
 | `ADMIN_USERNAME` | yes | The one admin's login username |
 | `ADMIN_PASSWORD_HASH` | yes | Set by `npm run admin:create` — never the plaintext |
 | `SESSION_SECRET` | yes | Random string used to sign session cookies |
@@ -75,7 +85,7 @@ For production, copy the resulting `ADMIN_USERNAME`, `ADMIN_PASSWORD_HASH`, and 
 2. In the Vercel dashboard: **New Project → Import** this repo.
 3. Vercel auto-detects the `/api` folder as serverless functions and serves everything else as static files — no build command needed.
 4. Under **Settings → Environment Variables**, add `DATABASE_URL`, `ADMIN_USERNAME`, `ADMIN_PASSWORD_HASH`, `SESSION_SECRET` (all "Production" — add to "Preview"/"Development" too if you want those environments to work).
-5. Deploy. Then run the migration/seed **once** against the production database — either run `npm run migrate && npm run seed` locally with `DATABASE_URL` pointed at production, or add a temporary one-off script execution however your database provider supports it.
+5. Deploy. If Vercel's `DATABASE_URL` points at the same Supabase project you already migrated/seeded locally, there's nothing further to do — it's the same database. If you're using a *separate* Supabase project for production, run `npm run migrate && npm run seed` once locally with `DATABASE_URL` temporarily pointed at that production project's connection string.
 6. Visit `/admin` on your deployed domain and log in.
 
 ## 6. Session security notes

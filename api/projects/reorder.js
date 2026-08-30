@@ -25,18 +25,18 @@ module.exports = withErrorHandling(async function handler(req, res) {
     }
 
     const pool = getPool();
-    const conn = await pool.getConnection();
+    const client = await pool.connect();
     try {
-        await conn.beginTransaction();
+        await client.query('BEGIN');
         for (const { id, displayOrder } of updates) {
-            await conn.execute('UPDATE projects SET display_order = ? WHERE id = ?', [displayOrder, id]);
+            await client.query('UPDATE projects SET display_order = $1 WHERE id = $2', [displayOrder, id]);
         }
-        await conn.commit();
+        await client.query('COMMIT');
     } catch (err) {
-        await conn.rollback();
+        await client.query('ROLLBACK');
         throw err;
     } finally {
-        conn.release();
+        client.release();
     }
 
     return res.status(200).json({ ok: true });

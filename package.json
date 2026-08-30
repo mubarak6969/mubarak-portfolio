@@ -13,6 +13,6 @@
   "dependencies": {
     "cookie": "^0.7.0",
     "jsonwebtoken": "^9.0.2",
-    "mysql2": "^3.11.0"
+    "pg": "^8.23.0"
   }
 }

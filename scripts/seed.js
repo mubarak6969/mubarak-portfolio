@@ -34,8 +34,11 @@ const existingProjects = [
 
 async function seed() {
     const existing = await query('SELECT COUNT(*) AS count FROM projects');
-    if (existing[0].count > 0) {
-        console.log(`Skipping seed — projects table already has ${existing[0].count} row(s).`);
+    // Postgres returns COUNT(*) as a bigint, which node-postgres hands back
+    // as a string to avoid precision loss — parse before comparing.
+    const count = parseInt(existing.rows[0].count, 10);
+    if (count > 0) {
+        console.log(`Skipping seed — projects table already has ${count} row(s).`);
         await getPool().end();
         return;
     }
@@ -44,7 +47,7 @@ async function seed() {
         await query(
             `INSERT INTO projects
                 (title, description, category, technologies, icon, github_url, demo, featured, published, display_order)
-             VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`,
+             VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10)`,
             [p.title, p.description, p.category, JSON.stringify(p.technologies), p.icon, p.github_url, p.demo, p.featured, p.published, p.display_order]
         );
         console.log(`Seeded: ${p.title}`);
