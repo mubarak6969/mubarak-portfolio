@@ -10,32 +10,30 @@ input:focus-visible,
 textarea:focus-visible,
 select:focus-visible,
 [tabindex]:focus-visible {
-    outline: 2px solid var(--accent, #E07020);
+    outline: 2px solid var(--accent, #2A7FC0);
     outline-offset: 3px;
     border-radius: 4px;
 }
 
 :root {
-    /* CYBER RONIN // NEURAL EDGES — replaces the old ICE (blue) system.
-       Variable names are kept stable on purpose: nearly every rule in this
-       file references these tokens rather than literal colors, so
-       redefining them here reskins the whole site from one place. */
-    --primary: #0a0807;               /* near-black ink — text-on-accent, ring/gap fills */
-    --secondary: #120d0a;             /* near-black, slightly warm — mobile nav, deep panels */
-    --surface: #150f0b;
-    --accent: #E07020;                /* orange accent */
-    --accent-dim: #A84A16;            /* deeper orange for gradients */
-    --accent-warm: #F0924A;           /* lighter orange for gradient highlights */
-    --ice-glow: rgba(224, 112, 32, 0.35);   /* kept name for compatibility; now an orange glow */
-    --glass-bg: rgba(10, 8, 7, 0.58);       /* "--card" from the brief — near-black translucent */
-    --glass-border: rgba(224, 112, 32, 0.28);
-    --glass-shadow: rgba(0, 0, 0, 0.5);
-    --text-primary: #FBDBAF;          /* cream */
-    --text-secondary: rgba(251, 219, 175, 0.72);   /* muted */
-    --text-muted: rgba(251, 219, 175, 0.48);       /* label */
-    --bg-base: #C45A18;               /* dominant burnt-orange page background */
-    --gradient-1: radial-gradient(120% 100% at 50% -10%, #D97A34 0%, #C45A18 45%, #8F3E10 100%);
-    --gradient-2: linear-gradient(135deg, #F0924A 0%, #E07020 100%);
+    /* BLACK / ICE / WHITE theme — token names kept from earlier themes so
+       every rule below re-themes from this one block. */
+    --primary: #ffffff;               /* text on dark buttons, panel fill */
+    --secondary: #ffffff;             /* mobile nav panel */
+    --surface: #f8fbfe;
+    --accent: #2A7FC0;                /* ice blue (readable on white) */
+    --accent-dim: #0B1220;            /* black — used as gradient end / labels */
+    --accent-warm: #9AD0F5;           /* light ice highlight */
+    --ice-glow: rgba(42, 127, 192, 0.30);
+    --glass-bg: rgba(255, 255, 255, 0.78);
+    --glass-border: rgba(11, 18, 32, 0.14);
+    --glass-shadow: rgba(11, 18, 32, 0.12);
+    --text-primary: #0A0F1A;          /* black ink */
+    --text-secondary: rgba(10, 15, 26, 0.78);
+    --text-muted: rgba(10, 15, 26, 0.62);
+    --bg-base: #F3F8FD;               /* ice white page background */
+    --gradient-1: radial-gradient(120% 100% at 50% -10%, #FFFFFF 0%, #F3F8FD 45%, #DCEBF8 100%);
+    --gradient-2: linear-gradient(135deg, #2A7FC0 0%, #0B1220 100%);
     --font-display: 'Orbitron', 'Inter', sans-serif;
     --font-body: 'Inter', sans-serif;
     --ease-ice: cubic-bezier(0.16, 1, 0.3, 1);
@@ -79,8 +77,8 @@ body {
     position: absolute;
     inset: 0;
     background-image:
-        repeating-linear-gradient(90deg, rgba(251, 219, 175, 0.05) 0, rgba(251, 219, 175, 0.05) 1px, transparent 1px, transparent 96px),
-        repeating-linear-gradient(0deg, rgba(251, 219, 175, 0.05) 0, rgba(251, 219, 175, 0.05) 1px, transparent 1px, transparent 96px);
+        repeating-linear-gradient(90deg, rgba(42, 127, 192, 0.05) 0, rgba(42, 127, 192, 0.05) 1px, transparent 1px, transparent 96px),
+        repeating-linear-gradient(0deg, rgba(42, 127, 192, 0.05) 0, rgba(42, 127, 192, 0.05) 1px, transparent 1px, transparent 96px);
     opacity: 0.5;
 }
 
@@ -95,7 +93,7 @@ body {
 .orb-1 {
     width: 420px;
     height: 420px;
-    background: radial-gradient(circle, rgba(224, 112, 32, 0.4), transparent);
+    background: radial-gradient(circle, rgba(42, 127, 192, 0.4), transparent);
     top: -120px;
     left: -100px;
     animation-delay: 0s !important;
@@ -104,7 +102,7 @@ body {
 .orb-2 {
     width: 320px;
     height: 320px;
-    background: radial-gradient(circle, rgba(10, 8, 7, 0.55), transparent);
+    background: radial-gradient(circle, rgba(154, 208, 245, 0.55), transparent);
     top: 55%;
     right: -100px;
     animation-delay: -5s !important;
@@ -113,7 +111,7 @@ body {
 .orb-3 {
     width: 360px;
     height: 360px;
-    background: radial-gradient(circle, rgba(251, 219, 175, 0.14), transparent);
+    background: radial-gradient(circle, rgba(42, 127, 192, 0.14), transparent);
     bottom: -100px;
     left: 30%;
     animation-delay: -10s !important;
@@ -122,7 +120,7 @@ body {
 .orb-4 {
     width: 260px;
     height: 260px;
-    background: radial-gradient(circle, rgba(10, 8, 7, 0.45), transparent);
+    background: radial-gradient(circle, rgba(154, 208, 245, 0.45), transparent);
     top: 30%;
     left: 50%;
     animation-delay: -15s !important;
@@ -150,7 +148,7 @@ body {
     position: absolute;
     width: 4px;
     height: 4px;
-    background: rgba(251, 219, 175, 0.4);
+    background: rgba(42, 127, 192, 0.4);
     border-radius: 50%;
     animation: particleFloat 15s infinite linear;
 }
@@ -174,14 +172,14 @@ body {
     justify-content: space-between;
     align-items: center;
     backdrop-filter: blur(20px);
-    background: rgba(10, 8, 7, 0.7);
+    background: rgba(255, 255, 255, 0.78);
     border-bottom: 1px solid var(--glass-border);
     transition: all 0.3s ease;
 }
 
 .navbar.scrolled {
     padding: 15px 50px;
-    background: rgba(10, 8, 7, 0.9);
+    background: rgba(255, 255, 255, 0.94);
 }
 
 .nav-logo {
@@ -257,10 +255,10 @@ body {
 }
 
 .nav-btn:hover {
-    background: rgba(224, 112, 32, 0.2);
+    background: rgba(42, 127, 192, 0.2);
     border-color: var(--accent);
     transform: translateY(-2px);
-    box-shadow: 0 5px 15px rgba(224, 112, 32, 0.2);
+    box-shadow: 0 5px 15px rgba(42, 127, 192, 0.2);
 }
 
 .hamburger {
@@ -293,32 +291,34 @@ body {
     position: relative;
     overflow: hidden;
     isolation: isolate;
+    background: var(--bg-base);
 }
 
 .hero-visual {
     position: absolute;
-    inset: 0;
+    inset: -14% 0 0 0;
     z-index: 0;
 }
 
 .hero-visual-base,
 .hero-visual-reveal {
     position: absolute;
-    inset: 0;
+    /* Shifted right so the figure sits beside the headline, not behind it. */
+    inset: 0 -16% 0 16%;
     background-image: var(--hero-img, none);
     background-size: cover;
     background-position: center right;
     will-change: transform, opacity;
 }
 
-.hero-visual-base { background-image: url('images/hero-base.webp'); }
+.hero-visual-base { background-image: url('images/hero-base-ice.webp'); }
 
 /* Cursor/touch spotlight: JS (cyber-spotlight.js) writes --spot-x/--spot-y/
    --spot-r on this element every frame. A radial-gradient mask is the only
    thing that needs to move — the two images themselves stay static, so this
    stays cheap even on lower-end devices. */
 .hero-visual-reveal {
-    background-image: url('images/hero-reveal.webp');
+    background-image: url('images/hero-reveal-ice.webp');
     -webkit-mask-image: radial-gradient(circle var(--spot-r, 0px) at var(--spot-x, 50%) var(--spot-y, 50%), #000 60%, transparent 100%);
     mask-image: radial-gradient(circle var(--spot-r, 0px) at var(--spot-x, 50%) var(--spot-y, 50%), #000 60%, transparent 100%);
     -webkit-mask-repeat: no-repeat;
@@ -329,9 +329,9 @@ body {
     position: absolute;
     inset: 0;
     background:
-        linear-gradient(100deg, var(--bg-base) 0%, rgba(196, 90, 24, 0.75) 28%, rgba(196, 90, 24, 0.18) 52%, transparent 68%),
+        linear-gradient(100deg, var(--bg-base) 0%, var(--bg-base) 16%, rgba(243, 248, 253, 0.7) 30%, rgba(243, 248, 253, 0.1) 46%, transparent 60%),
         linear-gradient(0deg, var(--bg-base) 0%, transparent 22%),
-        radial-gradient(140% 90% at 50% -20%, rgba(217, 122, 52, 0.35), transparent 60%);
+        radial-gradient(140% 90% at 50% -20%, rgba(255, 255, 255, 0.35), transparent 60%);
 }
 
 .hero-frame-counter {
@@ -375,7 +375,7 @@ body {
     text-transform: uppercase;
     margin-bottom: 20px;
     color: var(--text-primary);
-    text-shadow: 0 4px 40px rgba(0, 0, 0, 0.35);
+    text-shadow: 0 2px 30px rgba(255, 255, 255, 0.7);
 }
 
 .hero-title .line-mask {
@@ -388,7 +388,7 @@ body {
 }
 
 .hero-title .highlight {
-    background: linear-gradient(135deg, var(--accent-warm), var(--accent) 60%, var(--accent-dim));
+    background: linear-gradient(135deg, var(--accent), var(--accent-dim));
     background-size: 200% auto;
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
@@ -473,7 +473,7 @@ body {
     font-size: 1.5rem;
     font-weight: 700;
     letter-spacing: 0.04em;
-    background-image: var(--gradient-2);
+    background-image: linear-gradient(135deg, var(--accent), var(--accent-dim));
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
@@ -565,7 +565,7 @@ body {
 .btn-primary {
     padding: 15px 35px;
     background: linear-gradient(135deg, var(--accent), var(--accent-dim));
-    color: var(--primary);
+    color: #ffffff;
     border: none;
     border-radius: var(--radius-sm);
     font-weight: 700;
@@ -580,12 +580,12 @@ body {
 
 .btn-primary:hover {
     transform: translateY(-3px);
-    box-shadow: 0 10px 30px rgba(224, 112, 32, 0.4);
+    box-shadow: 0 10px 30px rgba(42, 127, 192, 0.4);
 }
 
 .btn-primary:active {
     transform: translateY(-1px);
-    box-shadow: 0 5px 15px rgba(224, 112, 32, 0.35);
+    box-shadow: 0 5px 15px rgba(42, 127, 192, 0.35);
 }
 
 .btn-primary:disabled {
@@ -613,7 +613,7 @@ body {
 }
 
 .btn-secondary:hover {
-    background: rgba(251, 219, 175, 0.15);
+    background: rgba(42, 127, 192, 0.15);
     transform: translateY(-3px);
     border-color: var(--accent);
 }
@@ -726,7 +726,7 @@ html:not(.reduce-motion) .hero-scroll-cue span {
 
 .glass-card:hover {
     transform: translateY(-5px);
-    border-color: rgba(224, 112, 32, 0.3);
+    border-color: rgba(42, 127, 192, 0.3);
 }
 
 .glass-card:hover::before,
@@ -771,7 +771,7 @@ html:not(.reduce-motion) .hero-scroll-cue span {
 
 .section-label:hover {
     transform: translateY(-2px);
-    box-shadow: 0 5px 15px rgba(224, 112, 32, 0.2);
+    box-shadow: 0 5px 15px rgba(42, 127, 192, 0.2);
 }
 
 .section-title {
@@ -849,8 +849,8 @@ html:not(.reduce-motion) .hero-scroll-cue span {
 .skill-card:hover,
 .skill-card:focus-visible {
     transform: translateY(-4px);
-    border-color: rgba(224, 112, 32, 0.35);
-    background: rgba(224, 112, 32, 0.05);
+    border-color: rgba(42, 127, 192, 0.35);
+    background: rgba(42, 127, 192, 0.05);
 }
 
 .skill-card i {
@@ -937,7 +937,7 @@ html:not(.reduce-motion) .hero-scroll-cue span {
 }
 
 .project-card:hover .project-tag {
-    border-color: rgba(224, 112, 32, 0.45);
+    border-color: rgba(42, 127, 192, 0.45);
 }
 
 .project-card:hover .project-links a {
@@ -947,7 +947,7 @@ html:not(.reduce-motion) .hero-scroll-cue span {
 .project-image {
     width: 100%;
     height: 200px;
-    background: linear-gradient(135deg, #1c2733, #0b0e13);
+    background: linear-gradient(135deg, #DCEBF8, #F8FBFE);
     border-radius: var(--radius-md);
     margin-bottom: 20px;
     display: flex;
@@ -967,12 +967,12 @@ html:not(.reduce-motion) .hero-scroll-cue span {
     content: '';
     position: absolute;
     inset: 0;
-    background: linear-gradient(135deg, rgba(224, 112, 32, 0.16), rgba(10, 8, 7, 0.88));
+    background: linear-gradient(135deg, rgba(42, 127, 192, 0.16), rgba(255, 255, 255, 0.85));
     transition: background var(--dur-ui) var(--ease-ice);
 }
 
 .project-card:hover .project-image::before {
-    background: linear-gradient(135deg, rgba(224, 112, 32, 0.26), rgba(10, 8, 7, 0.78));
+    background: linear-gradient(135deg, rgba(42, 127, 192, 0.26), rgba(255, 255, 255, 0.72));
 }
 
 /* Light sweep — same ICE signature as the hero photo ring, but
@@ -985,7 +985,7 @@ html:not(.reduce-motion) .hero-scroll-cue span {
     left: -60%;
     width: 40%;
     height: 100%;
-    background: linear-gradient(100deg, transparent, rgba(224, 112, 32, 0.16), transparent);
+    background: linear-gradient(100deg, transparent, rgba(42, 127, 192, 0.16), transparent);
     transform: skewX(-15deg);
     transition: left 0.7s var(--ease-ice);
 }
@@ -1013,8 +1013,8 @@ html:not(.reduce-motion) .hero-scroll-cue span {
 
 .project-tag {
     padding: 4px 12px;
-    background: rgba(224, 112, 32, 0.1);
-    border: 1px solid rgba(224, 112, 32, 0.3);
+    background: rgba(42, 127, 192, 0.1);
+    border: 1px solid rgba(42, 127, 192, 0.3);
     border-radius: var(--radius-md);
     font-size: 0.75rem;
     color: var(--accent);
@@ -1022,7 +1022,7 @@ html:not(.reduce-motion) .hero-scroll-cue span {
 }
 
 .project-tag:hover {
-    background: rgba(224, 112, 32, 0.2);
+    background: rgba(42, 127, 192, 0.2);
     transform: translateY(-2px);
 }
 
@@ -1208,7 +1208,7 @@ html:not(.reduce-motion) .hero-scroll-cue span {
     content: '';
     position: absolute;
     inset: 0;
-    background: radial-gradient(280px circle at 50% 0%, rgba(224, 112, 32, 0.06), transparent 70%);
+    background: radial-gradient(280px circle at 50% 0%, rgba(42, 127, 192, 0.06), transparent 70%);
     opacity: 0;
     transition: opacity var(--dur-ui) var(--ease-ice);
     pointer-events: none;
@@ -1226,8 +1226,8 @@ html:not(.reduce-motion) .hero-scroll-cue span {
     width: 80px;
     height: 80px;
     margin: 0 auto 20px;
-    background: linear-gradient(135deg, rgba(224, 112, 32, 0.1), rgba(224, 112, 32, 0.05));
-    border: 1px solid rgba(224, 112, 32, 0.2);
+    background: linear-gradient(135deg, rgba(42, 127, 192, 0.1), rgba(42, 127, 192, 0.05));
+    border: 1px solid rgba(42, 127, 192, 0.2);
     border-radius: var(--radius-md);
     display: flex;
     align-items: center;
@@ -1239,7 +1239,7 @@ html:not(.reduce-motion) .hero-scroll-cue span {
 
 .service-card:hover .service-icon {
     transform: translateY(-5px) rotate(5deg);
-    box-shadow: 0 10px 25px rgba(224, 112, 32, 0.2);
+    box-shadow: 0 10px 25px rgba(42, 127, 192, 0.2);
 }
 
 .service-card h3 {
@@ -1306,7 +1306,7 @@ html:not(.reduce-motion) .hero-scroll-cue span {
 }
 
 .contact-item:hover .contact-item-icon {
-    background: rgba(224, 112, 32, 0.1);
+    background: rgba(42, 127, 192, 0.1);
     transform: scale(1.1);
 }
 
@@ -1359,8 +1359,8 @@ html:not(.reduce-motion) .hero-scroll-cue span {
 .form-group input:focus,
 .form-group textarea:focus {
     border-color: var(--accent);
-    background: rgba(251, 219, 175, 0.12);
-    box-shadow: 0 0 20px rgba(224, 112, 32, 0.1);
+    background: rgba(42, 127, 192, 0.12);
+    box-shadow: 0 0 20px rgba(42, 127, 192, 0.1);
 }
 
 .form-group textarea {
@@ -1380,7 +1380,7 @@ html:not(.reduce-motion) .hero-scroll-cue span {
     text-align: center;
     border-top: 1px solid var(--glass-border);
     backdrop-filter: blur(20px);
-    background: rgba(10, 8, 7, 0.5);
+    background: rgba(255, 255, 255, 0.6);
 }
 
 .footer::before {
@@ -1434,10 +1434,10 @@ html:not(.reduce-motion) .hero-scroll-cue span {
 }
 
 .footer-social a:hover {
-    background: rgba(224, 112, 32, 0.2);
+    background: rgba(42, 127, 192, 0.2);
     border-color: var(--accent);
     transform: translateY(-3px) scale(1.1);
-    box-shadow: 0 5px 15px rgba(224, 112, 32, 0.2);
+    box-shadow: 0 5px 15px rgba(42, 127, 192, 0.2);
 }
 
 .footer p {
@@ -1463,7 +1463,7 @@ html:not(.reduce-motion) .hero-scroll-cue span {
 }
 
 .modal {
-    background: rgba(10, 8, 7, 0.97);
+    background: rgba(255, 255, 255, 0.98);
     backdrop-filter: blur(30px);
     border: 1px solid var(--glass-border);
     border-radius: var(--radius-md);
@@ -1541,7 +1541,7 @@ html:not(.reduce-motion) .hero-scroll-cue span {
 .modal-form select:focus,
 .modal-form textarea:focus {
     border-color: var(--accent);
-    box-shadow: 0 0 15px rgba(224, 112, 32, 0.1);
+    box-shadow: 0 0 15px rgba(42, 127, 192, 0.1);
 }
 
 .modal-form select {
@@ -1561,7 +1561,7 @@ html:not(.reduce-motion) .hero-scroll-cue span {
 .modal-submit {
     padding: 14px;
     background: linear-gradient(135deg, var(--accent), var(--accent-dim));
-    color: var(--primary);
+    color: #ffffff;
     border: none;
     border-radius: var(--radius-sm);
     font-weight: 700;
@@ -1572,7 +1572,7 @@ html:not(.reduce-motion) .hero-scroll-cue span {
 
 .modal-submit:hover {
     transform: translateY(-2px);
-    box-shadow: 0 10px 25px rgba(224, 112, 32, 0.3);
+    box-shadow: 0 10px 25px rgba(42, 127, 192, 0.3);
 }
 
 .modal-switch {
@@ -1599,7 +1599,7 @@ html:not(.reduce-motion) .hero-scroll-cue span {
     top: 100px;
     right: 30px;
     padding: 15px 25px;
-    background: rgba(10, 8, 7, 0.97);
+    background: rgba(255, 255, 255, 0.98);
     backdrop-filter: blur(20px);
     border: 1px solid var(--glass-border);
     border-radius: var(--radius-sm);
@@ -1706,6 +1706,11 @@ html:not(.reduce-motion) .hero-scroll-cue span {
    screen.
    ========================================================================== */
 @media (max-width: 768px) {
+    .hero-visual-base,
+    .hero-visual-reveal {
+        inset: 0;
+    }
+
     .hero {
         padding: 110px 24px 56px;
         padding-top: calc(110px + env(safe-area-inset-top, 0px));
@@ -1722,8 +1727,8 @@ html:not(.reduce-motion) .hero-scroll-cue span {
 
     .hero-visual-scrim {
         background:
-            linear-gradient(0deg, var(--bg-base) 0%, rgba(196, 90, 24, 0.55) 40%, rgba(196, 90, 24, 0.15) 65%, transparent 85%),
-            radial-gradient(140% 60% at 50% 0%, rgba(217, 122, 52, 0.3), transparent 60%);
+            linear-gradient(0deg, var(--bg-base) 0%, rgba(243, 248, 253, 0.55) 40%, rgba(243, 248, 253, 0.15) 65%, transparent 85%),
+            radial-gradient(140% 60% at 50% 0%, rgba(255, 255, 255, 0.3), transparent 60%);
     }
 
     .hero-frame-counter {
@@ -1818,7 +1823,7 @@ html:not(.reduce-motion) .hero-scroll-cue span {
     pointer-events: none;
     opacity: 0;
     transition: opacity 0.6s ease;
-    background: radial-gradient(420px circle at var(--px, 50%) var(--py, 50%), rgba(224, 112, 32, 0.05), transparent 70%);
+    background: radial-gradient(420px circle at var(--px, 50%) var(--py, 50%), rgba(42, 127, 192, 0.05), transparent 70%);
 }
 
 .pointer-light.active {

@@ -36,7 +36,9 @@
     }
 
     function queueSpot(clientX, clientY) {
-        var rect = hero.getBoundingClientRect();
+        // Relative to the reveal layer itself (it is offset/parallaxed inside
+        // the hero), so the mask stays centered under the pointer.
+        var rect = reveal.getBoundingClientRect();
         pendingX = clientX - rect.left;
         pendingY = clientY - rect.top;
         if (!ticking) {

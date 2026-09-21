@@ -212,10 +212,9 @@
         var content = document.querySelector('.hero-content');
         if (!visual || !content) return;
         var st = { trigger: '#home', start: 'top top', end: 'bottom top', scrub: true };
-        gsap.to(visual, { yPercent: 18, scale: 1.08, ease: 'none', scrollTrigger: st });
-        gsap.to(content, { y: -60, opacity: 0.15, ease: 'none', scrollTrigger: {
-            trigger: '#home', start: '55% top', end: 'bottom top', scrub: true
-        } });
+        gsap.to(visual, { yPercent: 8, ease: 'none', scrollTrigger: st });
+        // Copy only drifts upward — it never fades, so text stays readable.
+        gsap.to(content, { y: -40, ease: 'none', scrollTrigger: st });
     }
 
     // ---------------------------------------------------------------
