@@ -13,38 +13,44 @@
     gsap.registerPlugin(ScrollTrigger);
 
     // ---------------------------------------------------------------
-    // Hero entrance choreography
+    // Hero entrance choreography — Cyber Ronin cinematic reveal.
+    // Image: scale(1.18) -> scale(1), opacity 0 -> 1.
+    // Headline lines: translateY(20px) -> 0, opacity 0 -> 1, ~0.1s stagger.
+    // Supporting elements (copy/controls/card/specs): opacity + translateY(14px)
+    // + blur(8px) -> blur(0), staggered.
     // ---------------------------------------------------------------
     function playHeroTimeline() {
         var navbar = document.getElementById('navbar');
+        var visual = document.querySelector('[data-hero="visual"]');
         var lines = document.querySelectorAll('.hero-title .line-inner');
-        var badge = document.querySelector('[data-hero="badge"]');
-        var subtitle = document.querySelector('[data-hero="subtitle"]');
-        var description = document.querySelector('[data-hero="description"]');
-        var buttons = document.querySelector('[data-hero="buttons"]');
-        var meta = document.querySelector('[data-hero="meta"]');
-        var stats = document.querySelectorAll('[data-hero="stats"] .stat-item');
-        var image = document.querySelector('[data-hero="image"]');
+        var kicker = document.querySelector('[data-hero="kicker"]');
+        var copy = document.querySelector('[data-hero="copy"]');
+        var controls = document.querySelector('[data-hero="controls"]');
+        var product = document.querySelector('[data-hero="product"]');
+        var specs = document.querySelector('[data-hero="specs"]');
+        var frameCounter = document.querySelector('.hero-frame-counter');
+        var supporting = [kicker, controls, product, specs, frameCounter].filter(Boolean);
 
         if (reduceMotion) return; // elements are already visible via base CSS.
 
         var tl = gsap.timeline({ defaults: { ease: 'power3.out' } });
 
-        gsap.set(lines, { yPercent: 110, opacity: 0 });
-        gsap.set([badge, subtitle, description, buttons, meta], { y: 16, opacity: 0 });
-        gsap.set(stats, { y: 12, opacity: 0 });
-        gsap.set(image, { opacity: 0, scale: 0.94 });
+        gsap.set(lines, { y: 20, opacity: 0 });
+        gsap.set(kicker, { y: 14, opacity: 0, filter: 'blur(8px)' });
+        gsap.set(copy, { y: 14, opacity: 0, filter: 'blur(8px)' });
+        gsap.set(supporting, { y: 14, opacity: 0, filter: 'blur(8px)' });
+        gsap.set(visual, { opacity: 0, scale: 1.18 });
         if (navbar) gsap.set(navbar, { y: -20, opacity: 0 });
 
-        tl.to(navbar, { y: 0, opacity: 1, duration: 0.6, ease: 'power2.out' }, 0)
-          .to(badge, { y: 0, opacity: 1, duration: 0.5 }, 0.15)
-          .to(lines, { yPercent: 0, opacity: 1, duration: 0.9, stagger: 0.12, ease: 'expo.out' }, 0.28)
-          .to(subtitle, { y: 0, opacity: 1, duration: 0.55 }, 0.55)
-          .to(description, { y: 0, opacity: 1, duration: 0.55 }, 0.65)
-          .to(buttons, { y: 0, opacity: 1, duration: 0.55 }, 0.75)
-          .to(meta, { y: 0, opacity: 1, duration: 0.5 }, 0.85)
-          .to(stats, { y: 0, opacity: 1, duration: 0.5, stagger: 0.08 }, 0.9)
-          .to(image, { opacity: 1, scale: 1, duration: 1, ease: 'power3.out' }, 0.35);
+        tl.to(visual, { opacity: 1, scale: 1, duration: 1.6, ease: 'power2.out' }, 0)
+          .to(navbar, { y: 0, opacity: 1, duration: 0.6, ease: 'power2.out' }, 0.1)
+          .to(kicker, { y: 0, opacity: 1, filter: 'blur(0px)', duration: 0.6 }, 0.35)
+          .to(lines, { y: 0, opacity: 1, duration: 0.7, stagger: 0.1, ease: 'power3.out' }, 0.45)
+          .to(copy, { y: 0, opacity: 1, filter: 'blur(0px)', duration: 0.7 }, 0.85)
+          .to(controls, { y: 0, opacity: 1, filter: 'blur(0px)', duration: 0.6, stagger: 0.06 }, 0.95)
+          .to(product, { y: 0, opacity: 1, filter: 'blur(0px)', duration: 0.7 }, 1.05)
+          .to(specs, { y: 0, opacity: 1, filter: 'blur(0px)', duration: 0.7 }, 1.0)
+          .to(frameCounter, { y: 0, opacity: 1, filter: 'blur(0px)', duration: 0.6 }, 0.6);
     }
 
     // ---------------------------------------------------------------
@@ -154,25 +160,132 @@
             start: 'top 88%',
             onEnter: function (batch) {
                 batch.forEach(function (el) { el.classList.add('active'); });
-                // fromTo with explicit endpoints — a plain gsap.from() here would
-                // sample the *current* computed style as its implicit target,
-                // which mid-CSS-transition (triggered by the classList.add above)
-                // is still animating away from 0, so it reads back ~0 and the
-                // tween ends up going nowhere. Explicit endpoints sidestep that.
-                gsap.fromTo(batch,
-                    { y: 24, opacity: 0 },
-                    {
+                // Each element enters from its own direction (data-dir), so
+                // left/right columns slide in toward each other instead of
+                // every block doing the same upward fade.
+                // fromTo with explicit endpoints — a plain gsap.from() would
+                // sample the mid-CSS-transition computed style as its target.
+                batch.forEach(function (el, i) {
+                    var dir = el.getAttribute('data-dir');
+                    var from = { y: 24, x: 0, opacity: 0 };
+                    if (dir === 'left') from = { y: 0, x: -60, opacity: 0 };
+                    if (dir === 'right') from = { y: 0, x: 60, opacity: 0 };
+                    gsap.fromTo(el, from, {
+                        x: 0,
                         y: 0,
                         opacity: 1,
-                        duration: 0.7,
-                        ease: 'power2.out',
-                        stagger: 0.08,
+                        duration: 0.9,
+                        ease: 'power3.out',
+                        delay: i * 0.08,
                         overwrite: true,
                         clearProps: 'transform'
-                    }
-                );
+                    });
+                });
             },
             once: true
+        });
+    }
+
+    // ---------------------------------------------------------------
+    // Scroll progress bar across the top of the page.
+    // ---------------------------------------------------------------
+    function initScrollProgress() {
+        if (reduceMotion) return;
+        var bar = document.createElement('div');
+        bar.className = 'scroll-progress';
+        bar.setAttribute('aria-hidden', 'true');
+        document.body.appendChild(bar);
+        gsap.to(bar, {
+            scaleX: 1,
+            ease: 'none',
+            scrollTrigger: { start: 0, end: 'max', scrub: 0.3 }
+        });
+    }
+
+    // ---------------------------------------------------------------
+    // Hero parallax: the cinematic image drifts slower than the page and
+    // the hero copy fades/lifts as you scroll away (scrubbed, not looped).
+    // ---------------------------------------------------------------
+    function initHeroParallax() {
+        if (reduceMotion) return;
+        var visual = document.querySelector('[data-hero="visual"]');
+        var content = document.querySelector('.hero-content');
+        if (!visual || !content) return;
+        var st = { trigger: '#home', start: 'top top', end: 'bottom top', scrub: true };
+        gsap.to(visual, { yPercent: 18, scale: 1.08, ease: 'none', scrollTrigger: st });
+        gsap.to(content, { y: -60, opacity: 0.15, ease: 'none', scrollTrigger: {
+            trigger: '#home', start: '55% top', end: 'bottom top', scrub: true
+        } });
+    }
+
+    // ---------------------------------------------------------------
+    // Count-up for numeric stats (data-count / data-suffix).
+    // ---------------------------------------------------------------
+    function initCountUp() {
+        var nums = gsap.utils.toArray('[data-count]');
+        if (!nums.length || reduceMotion) return;
+        nums.forEach(function (el) {
+            var target = parseInt(el.getAttribute('data-count'), 10);
+            var suffix = el.getAttribute('data-suffix') || '';
+            var state = { v: 0 };
+            el.textContent = '0' + suffix;
+            ScrollTrigger.create({
+                trigger: el,
+                start: 'top 90%',
+                once: true,
+                onEnter: function () {
+                    gsap.to(state, {
+                        v: target,
+                        duration: 1.6,
+                        ease: 'power2.out',
+                        onUpdate: function () { el.textContent = Math.round(state.v) + suffix; },
+                        onComplete: function () { el.textContent = target + suffix; }
+                    });
+                }
+            });
+        });
+    }
+
+    // ---------------------------------------------------------------
+    // Staggered pop-in for skill cards and experience bullet lists.
+    // ---------------------------------------------------------------
+    function initStaggers() {
+        if (reduceMotion) return;
+        var groups = [
+            { sel: '.skills-grid', child: '.skill-card', from: { y: 30, scale: 0.92, opacity: 0 } },
+            { sel: '.services-grid', child: '.service-card', from: { y: 40, opacity: 0 } }
+        ];
+        groups.forEach(function (g) {
+            var container = document.querySelector(g.sel);
+            if (!container) return;
+            var kids = container.querySelectorAll(g.child);
+            // The parent .reveal already fades in; stagger only the children.
+            gsap.set(kids, g.from);
+            ScrollTrigger.create({
+                trigger: container,
+                start: 'top 85%',
+                once: true,
+                onEnter: function () {
+                    gsap.to(kids, {
+                        y: 0, scale: 1, opacity: 1,
+                        duration: 0.7, ease: 'back.out(1.4)', stagger: 0.09,
+                        clearProps: 'transform,opacity'
+                    });
+                }
+            });
+        });
+
+        gsap.utils.toArray('.experience-list').forEach(function (list) {
+            var items = list.querySelectorAll('li');
+            gsap.set(items, { x: -20, opacity: 0 });
+            ScrollTrigger.create({
+                trigger: list,
+                start: 'top 90%',
+                once: true,
+                onEnter: function () {
+                    gsap.to(items, { x: 0, opacity: 1, duration: 0.6, ease: 'power2.out', stagger: 0.12, clearProps: 'transform,opacity' });
+                }
+            });
         });
     }
 
@@ -180,7 +293,7 @@
     // Active nav-link tracking while scrolling
     // ---------------------------------------------------------------
     function initNavTracking() {
-        var sections = ['home', 'about', 'projects', 'services', 'contact'];
+        var sections = ['home', 'about', 'experience', 'projects', 'services', 'contact'];
         sections.forEach(function (id) {
             var el = document.getElementById(id);
             var link = document.querySelector('.nav-link[data-section="' + id + '"]');
@@ -252,25 +365,6 @@
             });
         });
 
-        // Subtle hero image tilt
-        var tiltEl = document.querySelector('[data-tilt]');
-        if (tiltEl) {
-            var rotX = gsap.quickTo(tiltEl, 'rotationX', { duration: 0.5, ease: 'power2.out' });
-            var rotY = gsap.quickTo(tiltEl, 'rotationY', { duration: 0.5, ease: 'power2.out' });
-
-            tiltEl.addEventListener('mousemove', function (e) {
-                var rect = tiltEl.getBoundingClientRect();
-                var relX = (e.clientX - rect.left) / rect.width - 0.5;
-                var relY = (e.clientY - rect.top) / rect.height - 0.5;
-                rotY(relX * 10);
-                rotX(relY * -10);
-            });
-
-            tiltEl.addEventListener('mouseleave', function () {
-                rotX(0);
-                rotY(0);
-            });
-        }
     }
 
     // ---------------------------------------------------------------
@@ -283,6 +377,10 @@
         initSectionHeaderReveals();
         revealProjectCards(false);
         initScrollReveals();
+        initScrollProgress();
+        initHeroParallax();
+        initCountUp();
+        initStaggers();
         initNavTracking();
         initPointerInteractions();
         projectsRevealedOnce = true;

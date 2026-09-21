@@ -141,6 +141,57 @@
         `).join('');
     }
 
+    // ---------------- Modal focus management ----------------
+    // Shared by the project-editor and delete-confirm modals: traps Tab
+    // inside the open dialog (background dashboard rows are still visible
+    // but keyboard users can no longer tab into them), moves focus into the
+    // dialog on open, and returns it to whatever triggered the dialog when
+    // it closes — the same contract as the public site's own modal.
+    let modalLastFocused = null;
+    let modalTrapHandler = null;
+
+    function getFocusableEls(container) {
+        return Array.from(
+            container.querySelectorAll('a[href], button:not([disabled]), input:not([disabled]), textarea:not([disabled]), select:not([disabled]), [tabindex]:not([tabindex="-1"])')
+        ).filter((node) => node.offsetParent !== null);
+    }
+
+    function openModal(overlay, initialFocusEl) {
+        modalLastFocused = document.activeElement;
+        overlay.classList.add('active');
+
+        const panel = overlay.querySelector('.modal');
+        (initialFocusEl || panel).focus();
+
+        modalTrapHandler = (e) => {
+            if (e.key !== 'Tab') return;
+            const focusable = getFocusableEls(panel);
+            if (!focusable.length) return;
+            const first = focusable[0];
+            const last = focusable[focusable.length - 1];
+            if (e.shiftKey && document.activeElement === first) {
+                e.preventDefault();
+                last.focus();
+            } else if (!e.shiftKey && document.activeElement === last) {
+                e.preventDefault();
+                first.focus();
+            }
+        };
+        overlay.addEventListener('keydown', modalTrapHandler);
+    }
+
+    function closeModal(overlay) {
+        overlay.classList.remove('active');
+        if (modalTrapHandler) {
+            overlay.removeEventListener('keydown', modalTrapHandler);
+            modalTrapHandler = null;
+        }
+        if (modalLastFocused) {
+            modalLastFocused.focus();
+            modalLastFocused = null;
+        }
+    }
+
     function escapeHtml(str) {
         const div = document.createElement('div');
         div.textContent = str == null ? '' : String(str);
@@ -208,16 +259,20 @@
         el('pfDemo').value = project ? project.demo : '';
         el('pfFeatured').checked = project ? project.featured : false;
         el('pfPublished').checked = project ? project.published : true;
-        el('projectFormModal').classList.add('active');
+        openModal(el('projectFormModal'), el('pfTitle'));
     }
 
     function closeProjectForm() {
-        el('projectFormModal').classList.remove('active');
+        closeModal(el('projectFormModal'));
     }
 
     el('addProjectBtn').addEventListener('click', () => openProjectForm(null));
     el('closeProjectForm').addEventListener('click', closeProjectForm);
-    el('closeProjectForm').addEventListener('keydown', (e) => { if (e.key === 'Enter') closeProjectForm(); });
+    el('closeProjectForm').addEventListener('keydown', (e) => {
+        if (e.key !== 'Enter' && e.key !== ' ') return;
+        e.preventDefault(); // Space would otherwise scroll the page
+        closeProjectForm();
+    });
 
     el('projectForm').addEventListener('submit', async (e) => {
         e.preventDefault();
@@ -263,12 +318,12 @@
 
     function openDeleteConfirm(id) {
         deleteTargetId = id;
-        el('deleteConfirmModal').classList.add('active');
+        openModal(el('deleteConfirmModal'), el('deleteCancelBtn'));
     }
 
     el('deleteCancelBtn').addEventListener('click', () => {
         deleteTargetId = null;
-        el('deleteConfirmModal').classList.remove('active');
+        closeModal(el('deleteConfirmModal'));
     });
 
     el('deleteConfirmBtn').addEventListener('click', async () => {
@@ -276,7 +331,7 @@
         try {
             await api(`/projects/${deleteTargetId}`, { method: 'DELETE' });
             showToast('Project deleted');
-            el('deleteConfirmModal').classList.remove('active');
+            closeModal(el('deleteConfirmModal'));
             deleteTargetId = null;
             await loadProjects();
         } catch (err) {
@@ -286,7 +341,7 @@
 
     document.querySelectorAll('.modal-overlay').forEach((overlay) => {
         overlay.addEventListener('click', (e) => {
-            if (e.target === overlay) overlay.classList.remove('active');
+            if (e.target === overlay) closeModal(overlay);
         });
     });
 
@@ -294,7 +349,7 @@
     document.addEventListener('keydown', (e) => {
         if (e.key !== 'Escape') return;
         document.querySelectorAll('.modal-overlay.active').forEach((overlay) => {
-            overlay.classList.remove('active');
+            closeModal(overlay);
         });
     });
 

@@ -3,10 +3,12 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Mohammed Mubarak | ML Engineer & Freelancer</title>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Playfair+Display:wght@700;800;900&display=swap" rel="stylesheet">
+    <title>Mohammed Mubarak | Python, AI/ML &amp; Backend Developer</title>
+    <meta name="description" content="Mohammed Mubarak — B.Tech CSE 2025 graduate (CGPA 8.9/10). Python, backend development, REST APIs, SQL and AI/ML. Open to entry-level Backend / Python Developer roles.">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Orbitron:wght@500;600;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="stylesheet" href="style.css">
+    <link rel="preload" as="image" href="images/hero-base.webp">
 </head>
 <body>
     <!-- Background Animation -->
@@ -25,6 +27,7 @@
         <ul class="nav-links" id="navLinks">
             <li><a href="#home" class="nav-link" data-section="home">Home</a></li>
             <li><a href="#about" class="nav-link" data-section="about">About</a></li>
+            <li><a href="#experience" class="nav-link" data-section="experience">Experience</a></li>
             <li><a href="#projects" class="nav-link" data-section="projects">Projects</a></li>
             <li><a href="#services" class="nav-link" data-section="services">Services</a></li>
             <li><a href="#contact" class="nav-link" data-section="contact">Contact</a></li>
@@ -36,59 +39,58 @@
         </div>
     </nav>
 
-    <!-- Hero Section -->
+    <!-- Hero Section — Cyber Ronin // Neural Edges -->
     <section class="hero" id="home">
-        <div class="hero-content">
-            <div class="hero-text">
-                <div class="hero-badge" data-hero="badge">
-                    <span class="dot"></span>
-                    Available for Freelance
-                </div>
-                <h1 class="hero-title" data-hero="title">
-                    <span class="line-mask"><span class="line-inner">Hi, I'm <span class="highlight">Mohammed</span></span></span>
-                    <span class="line-mask"><span class="line-inner">Mubarak</span></span>
-                </h1>
-                <p class="hero-subtitle" data-hero="subtitle">Machine Learning Engineer & AI Specialist</p>
-                <p class="hero-description" data-hero="description">
-                    Computer Science graduate (CGPA 8.9/10) with hands-on experience in Machine Learning, Deep Learning, Python, and Computer Vision. Published researcher with 100+ LeetCode problems solved.
-                </p>
-                <div class="hero-buttons" data-hero="buttons">
-                    <a href="https://wa.me/917569319827?text=Hi%20Mohammed,%20I'm%20interested%20in%20your%20freelance%20services" target="_blank" class="btn-primary magnetic">
-                        <i class="fab fa-whatsapp"></i> Hire Me
-                    </a>
-                    <a href="https://github.com/mubarak6969" target="_blank" class="btn-secondary magnetic">
-                        <i class="fab fa-github"></i> GitHub
-                    </a>
-                </div>
-                <div class="hero-meta" data-hero="meta">
-                    <span>B.Tech CSE · 8.9 CGPA</span>
-                    <span class="hero-meta-sep">·</span>
-                    <span>Tirunelveli, India</span>
-                    <span class="hero-meta-sep">·</span>
-                    <span>Open to remote work</span>
-                </div>
-                <div class="hero-stats" data-hero="stats">
-                    <div class="stat-item">
-                        <div class="stat-number">10+</div>
-                        <div class="stat-label">Projects</div>
-                    </div>
-                    <div class="stat-item">
-                        <div class="stat-number">92%</div>
-                        <div class="stat-label">Accuracy</div>
-                    </div>
-                    <div class="stat-item">
-                        <div class="stat-number">100+</div>
-                        <div class="stat-label">LeetCode</div>
-                    </div>
-                </div>
-            </div>
-            <div class="hero-image" data-hero="image">
-                <div class="hero-image-wrapper" data-tilt>
-                    <div class="hero-image-sweep"></div>
-                    <img src="profile.jpg" alt="Mohammed Mubarak" id="heroImage" onerror="this.src='https://via.placeholder.com/380x380/0b0e13/bfe4ff?text=MM'">
-                </div>
-            </div>
+        <div class="hero-visual" data-hero="visual" aria-hidden="true">
+            <div class="hero-visual-base" data-spotlight-base></div>
+            <div class="hero-visual-reveal" data-spotlight-reveal></div>
+            <div class="hero-visual-scrim"></div>
         </div>
+
+        <span class="hero-frame-counter" aria-hidden="true">PORTFOLIO // 01</span>
+
+        <div class="hero-content">
+            <div class="hero-main">
+                <p class="hero-kicker" data-hero="kicker">Mohammed Mubarak // Computer Science Engineer</p>
+                <h1 class="hero-title" data-hero="title">
+                    <span class="line-mask"><span class="line-inner">PYTHON //</span></span>
+                    <span class="line-mask"><span class="line-inner highlight">AI &amp; ML</span></span>
+                    <span class="line-mask"><span class="line-inner">ENGINEER</span></span>
+                </h1>
+                <p class="hero-copy" data-hero="copy">
+                    Computer Science Engineer focused on Python, backend development, AI and Machine Learning &mdash; building reliable software and intelligent systems that turn ideas into useful products.
+                </p>
+
+                <div class="hero-controls" data-hero="controls">
+                    <a class="hero-icon-btn magnetic" href="https://github.com/mubarak6969" target="_blank" aria-label="GitHub profile"><i class="fab fa-github"></i></a>
+                    <a class="hero-icon-btn magnetic" href="https://www.linkedin.com/in/mohammed-mubarak-0522a1257/" target="_blank" aria-label="LinkedIn profile"><i class="fab fa-linkedin-in"></i></a>
+                    <a class="hero-icon-btn magnetic" href="mailto:mubarak7842a@gmail.com" aria-label="Send an email"><i class="fas fa-envelope"></i></a>
+                </div>
+
+                <div class="product-card" data-hero="product">
+                    <div class="product-card-thumb" aria-hidden="true">MM</div>
+                    <div class="product-card-body">
+                        <span class="product-card-eyebrow">Mohammed Mubarak &middot; B.Tech CSE &middot; 2025</span>
+                        <p class="product-card-desc">CGPA 8.9/10 &mdash; Open to entry-level Backend / Python Developer roles</p>
+                        <a href="#projects" class="btn-primary product-card-cta magnetic">Explore Projects</a>
+                    </div>
+                </div>
+            </div>
+
+            <aside class="specs-panel" data-hero="specs" aria-label="Engineer profile">
+                <span class="specs-label">Engineer Profile</span>
+                <dl class="specs-list">
+                    <div class="specs-row"><dt>Education</dt><dd>B.Tech CSE</dd></div>
+                    <div class="specs-row"><dt>Graduated</dt><dd>2025</dd></div>
+                    <div class="specs-row"><dt>CGPA</dt><dd>8.9 / 10</dd></div>
+                    <div class="specs-row"><dt>Focus</dt><dd class="specs-status">Python &middot; Backend &middot; AI/ML</dd></div>
+                </dl>
+            </aside>
+        </div>
+
+        <button class="hero-scroll-cue" type="button" data-scroll-cue aria-label="Scroll to explore">
+            <span aria-hidden="true"></span>
+        </button>
     </section>
 
     <!-- About Section -->
@@ -96,21 +98,21 @@
         <div class="section-header reveal">
             <span class="section-label">About Me</span>
             <h2 class="section-title">Know Me Better</h2>
-            <p class="section-subtitle">Passionate about building intelligent systems</p>
+            <p class="section-subtitle">Python, backend and applied AI/ML</p>
         </div>
         <div class="about-grid">
-            <div class="about-text reveal">
-                <h3>Machine Learning Engineer from India</h3>
-                <p>I'm a Computer Science graduate (CGPA 8.9/10) with strong foundations in ML, DSA, and software engineering. I specialize in building end-to-end deep learning systems and computer vision applications.</p>
-                <p>Published researcher with experience in ECG signal processing, facial recognition systems, and real-time web applications. I'm passionate about leveraging AI to solve complex problems.</p>
+            <div class="about-text reveal" data-dir="left">
+                <h3>Computer Science Engineer from Chennai</h3>
+                <p>B.Tech Computer Science graduate (2025, CGPA 8.9/10) with strong fundamentals in Python, data structures and algorithms, SQL databases, and backend development, including REST APIs and HTTP.</p>
+                <p>I completed internships in Web Development and Machine Learning and built projects that add practical AI/ML skills such as machine learning algorithms and computer vision. I&rsquo;m seeking an entry-level Backend / Python Developer role to build reliable software and keep learning from experienced engineers.</p>
                 <div class="about-info">
                     <div class="info-item">
                         <i class="fas fa-graduation-cap"></i>
-                        <span>B.Tech CSE (8.9 CGPA)</span>
+                        <span>B.Tech CSE (8.9 CGPA) &middot; 2025</span>
                     </div>
                     <div class="info-item">
                         <i class="fas fa-map-marker-alt"></i>
-                        <span>Tirunelveli, Tamil Nadu</span>
+                        <span>Chennai, Tamil Nadu</span>
                     </div>
                     <div class="info-item">
                         <i class="fas fa-envelope"></i>
@@ -121,33 +123,116 @@
                         <span>+91 7569319827</span>
                     </div>
                 </div>
+                <div class="about-stats">
+                    <div class="stat-item">
+                        <div class="stat-number" data-count="2">2</div>
+                        <div class="stat-label">Internships</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-number" data-count="1">1</div>
+                        <div class="stat-label">Published Paper</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-number" data-count="100" data-suffix="+">100+</div>
+                        <div class="stat-label">LeetCode Solved</div>
+                    </div>
+                </div>
             </div>
-            <div class="skills-grid reveal">
+            <div class="skills-grid reveal" data-dir="right">
                 <div class="glass-card skill-card">
-                    <i class="fas fa-brain"></i>
-                    <h4>Machine Learning</h4>
-                    <p>TensorFlow, Keras, Scikit-learn</p>
+                    <i class="fas fa-laptop-code"></i>
+                    <h4>Frontend</h4>
+                    <p>HTML, CSS, JavaScript, TypeScript</p>
                 </div>
                 <div class="glass-card skill-card">
-                    <i class="fas fa-eye"></i>
-                    <h4>Computer Vision</h4>
-                    <p>OpenCV, CNN, R-CNN</p>
+                    <i class="fas fa-server"></i>
+                    <h4>Backend</h4>
+                    <p>Python, Java, FastAPI, PostgreSQL</p>
                 </div>
                 <div class="glass-card skill-card">
-                    <i class="fas fa-code"></i>
-                    <h4>Python Development</h4>
-                    <p>Flask, Streamlit, REST APIs</p>
+                    <i class="fas fa-plug"></i>
+                    <h4>Backend Core</h4>
+                    <p>REST API, HTTP Status Codes, Deployment, CRUD</p>
                 </div>
                 <div class="glass-card skill-card">
                     <i class="fas fa-database"></i>
-                    <h4>Data Science</h4>
-                    <p>Pandas, NumPy, SQL</p>
+                    <h4>Databases</h4>
+                    <p>SQL, MySQL</p>
+                </div>
+                <div class="glass-card skill-card">
+                    <i class="fas fa-brain"></i>
+                    <h4>Data &amp; ML</h4>
+                    <p>NumPy, Pandas, Matplotlib, Seaborn, OpenCV, ML Algorithms</p>
+                </div>
+                <div class="glass-card skill-card">
+                    <i class="fas fa-code-branch"></i>
+                    <h4>Version Control</h4>
+                    <p>Git, GitHub</p>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- Projects Section -->
+    <!-- Experience Section -->
+    <section class="section" id="experience">
+        <div class="section-header reveal">
+            <span class="section-label">Experience &amp; Education</span>
+            <h2 class="section-title">Where I&rsquo;ve Worked</h2>
+            <p class="section-subtitle">Hands-on internships in machine learning and web development</p>
+        </div>
+        <div class="experience-timeline">
+            <div class="glass-card experience-card reveal" data-dir="left">
+                <div class="experience-card-header">
+                    <h3 class="experience-role">Machine Learning Intern</h3>
+                    <span class="experience-dates">Jun 2025 &ndash; Sep 2025</span>
+                </div>
+                <span class="experience-company">VCodez &ndash; Innovating Ideas &middot; Chennai, India</span>
+                <ul class="experience-list">
+                    <li>Built a facial recognition attendance system in Python using OpenCV and MediaPipe, with a web interface and a PostgreSQL database.</li>
+                    <li>Cleaned data and created features with Pandas and NumPy to prepare datasets for model training and evaluation.</li>
+                    <li>Wrote SQL queries to extract and prepare data for model testing, and tested the application with 66 pytest tests.</li>
+                </ul>
+            </div>
+            <div class="glass-card experience-card reveal" data-dir="right">
+                <div class="experience-card-header">
+                    <h3 class="experience-role">Web Development Intern</h3>
+                    <span class="experience-dates">Nov 2023 &ndash; Dec 2023</span>
+                </div>
+                <span class="experience-company">Motion Cut &middot; Remote</span>
+                <ul class="experience-list">
+                    <li>Tested 15+ REST API endpoints using Postman to check that responses and status codes were correct.</li>
+                    <li>Worked with MySQL tables and built responsive pages using HTML, CSS, and JavaScript.</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="credentials-grid">
+            <div class="glass-card experience-card reveal">
+                <span class="credential-label">Education</span>
+                <h3 class="experience-role">B.Tech, Computer Science Engineering</h3>
+                <span class="experience-company">Bharath Institute of Science and Technology, Chennai</span>
+                <span class="experience-dates">2021 &ndash; 2025 &middot; CGPA 8.9 / 10</span>
+            </div>
+            <div class="glass-card experience-card reveal">
+                <span class="credential-label">Certifications</span>
+                <ul class="experience-list">
+                    <li>Data Analytics Job Simulation, Deloitte (Forage), 2025</li>
+                    <li>The Complete MySQL Bootcamp, Udemy, 2024</li>
+                    <li>Python for Beginners, Udemy, 2024</li>
+                </ul>
+            </div>
+            <div class="glass-card experience-card reveal">
+                <span class="credential-label">Achievements</span>
+                <ul class="experience-list">
+                    <li>Published research paper &ldquo;ECG Peak Detection Using Deep Learning Approaches&rdquo; in IJSART, Vol. 11, Issue 4, 2025.</li>
+                    <li>Solved 100+ LeetCode problems covering arrays, strings, hashing, searching, sorting, and optimization.</li>
+                </ul>
+            </div>
+        </div>
+    </section>
+
+    
+<!-- Projects Section -->
     <section class="section" id="projects">
         <div class="section-header reveal">
             <span class="section-label">My Work</span>
@@ -162,9 +247,9 @@
     <!-- Services Section -->
     <section class="section" id="services">
         <div class="section-header reveal">
-            <span class="section-label">What I Offer</span>
+            <span class="section-label">What I Do</span>
             <h2 class="section-title">My Services</h2>
-            <p class="section-subtitle">Professional solutions for your needs</p>
+            <p class="section-subtitle">Areas where I can contribute</p>
         </div>
         <div class="services-grid">
             <div class="glass-card service-card reveal">
@@ -172,7 +257,7 @@
                     <i class="fas fa-robot"></i>
                 </div>
                 <h3>ML Model Development</h3>
-                <p>Custom machine learning models for classification, prediction, and automation tasks with high accuracy.</p>
+                <p>Training and evaluating machine learning and deep learning models for classification and prediction tasks with TensorFlow/Keras.</p>
             </div>
             <div class="glass-card service-card reveal">
                 <div class="service-icon">
@@ -193,7 +278,7 @@
                     <i class="fas fa-globe"></i>
                 </div>
                 <h3>Web Development</h3>
-                <p>Full-stack web applications with Flask, REST APIs, and modern frontend technologies.</p>
+                <p>Backend services and REST APIs with Python and FastAPI, SQL databases, and responsive HTML, CSS and JavaScript frontends.</p>
             </div>
             <div class="glass-card service-card reveal">
                 <div class="service-icon">
@@ -207,7 +292,7 @@
                     <i class="fas fa-rocket"></i>
                 </div>
                 <h3>Model Deployment</h3>
-                <p>End-to-end deployment of ML models with real-time prediction capabilities and monitoring.</p>
+                <p>Wrapping models in REST APIs, containerizing with Docker, and deploying online with services like Render and Neon PostgreSQL.</p>
             </div>
         </div>
     </section>
@@ -217,12 +302,13 @@
         <div class="section-header reveal">
             <span class="section-label">Get In Touch</span>
             <h2 class="section-title">Let's Work Together</h2>
-            <p class="section-subtitle">Have a project in mind? Let's discuss</p>
+            <p class="section-subtitle">Open to entry-level Backend / Python Developer roles</p>
         </div>
         <div class="contact-container">
             <div class="contact-info reveal">
-                <h3>Let's create something amazing</h3>
-                <p>I'm always open to discussing new projects, creative ideas, or opportunities to be part of your vision. Feel free to reach out!</p>
+                <h3>Let's build something reliable</h3>
+                <p>I'm looking for an entry-level Backend / Python Developer role where I can build reliable software and learn from experienced engineers. Feel free to reach out about opportunities or collaboration.</p>
+                <a href="Mohammed_Mubarak_Resume.pdf" download class="btn-secondary contact-resume"><i class="fas fa-file-arrow-down"></i> Download Resume</a>
                 <div class="contact-details">
                     <div class="contact-item">
                         <div class="contact-item-icon">
@@ -248,7 +334,7 @@
                         </div>
                         <div class="contact-item-text">
                             <h4>Location</h4>
-                            <p>Tirunelveli, Tamil Nadu, India</p>
+                            <p>Chennai, Tamil Nadu, India</p>
                         </div>
                     </div>
                     <div class="contact-item">
@@ -285,7 +371,7 @@
     <!-- Footer -->
     <footer class="footer">
         <div class="footer-brand">Mohammed Mubarak</div>
-        <p class="footer-tagline">Machine Learning Engineer &amp; AI Specialist</p>
+        <p class="footer-tagline">Computer Science Engineer &mdash; Python, AI &amp; ML</p>
         <div class="footer-social">
             <a href="https://github.com/mubarak6969" target="_blank" aria-label="GitHub profile"><i class="fab fa-github"></i></a>
             <a href="https://www.linkedin.com/in/mohammed-mubarak-0522a1257/" target="_blank" aria-label="LinkedIn profile"><i class="fab fa-linkedin-in"></i></a>
@@ -305,5 +391,6 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
     <script src="script.js"></script>
     <script src="animations.js"></script>
+    <script src="cyber-spotlight.js"></script>
 </body>
 </html>
