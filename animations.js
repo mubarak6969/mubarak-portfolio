@@ -39,7 +39,7 @@
         gsap.set(kicker, { y: 14, opacity: 0, filter: 'blur(8px)' });
         gsap.set(copy, { y: 14, opacity: 0, filter: 'blur(8px)' });
         gsap.set(supporting, { y: 14, opacity: 0, filter: 'blur(8px)' });
-        gsap.set(visual, { opacity: 0, scale: 1.18 });
+        gsap.set(visual, { opacity: 0, scale: 1.05 });
         if (navbar) gsap.set(navbar, { y: -20, opacity: 0 });
 
         tl.to(visual, { opacity: 1, scale: 1, duration: 1.6, ease: 'power2.out' }, 0)

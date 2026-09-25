@@ -306,8 +306,34 @@ body {
     inset: 0 -16% 0 16%;
     background-image: url('images/personal/hero-workspace.webp');
     background-size: cover;
-    background-position: center 22%;
-    will-change: transform;
+    background-position: 62% 22%;
+    will-change: transform, opacity;
+    transition: opacity 1.2s var(--ease-ice);
+}
+
+.hero-visual-base.is-faded {
+    opacity: 0;
+}
+
+/* The hero video is the animated twin of the base photo — same crop, same
+   framing — so the crossfade reads as the shot coming alive, not a swap.
+   Starts invisible: the base <img> is the only guaranteed-safe state (video
+   autoplay can be blocked, the file can fail to load), so nothing here ever
+   assumes the video will actually play. */
+.hero-visual-video {
+    position: absolute;
+    inset: 0 -16% 0 16%;
+    width: calc(100% + 16%);
+    height: 100%;
+    object-fit: cover;
+    object-position: 62% 22%;
+    opacity: 0;
+    transition: opacity 1.2s var(--ease-ice);
+    will-change: opacity;
+}
+
+.hero-visual-video.is-playing {
+    opacity: 1;
 }
 
 .hero-visual-scrim {
@@ -1885,7 +1911,21 @@ html:not(.reduce-motion) .hero-scroll-cue span {
 @media (max-width: 768px) {
     .hero-visual-base {
         inset: 0;
-        background-position: center 18%;
+        /* On a tall/narrow viewport, cover-fit is height-constrained, so the
+           full image height (and with it, the full face) always shows —
+           only the horizontal slice changes with position-x. 35% centers
+           the actual face position in the source photo (measured, not
+           guessed) within that slice. */
+        background-position: 35% top;
+    }
+
+    .hero-visual-video {
+        inset: 0;
+        width: 100%;
+        height: 100%;
+        top: 0;
+        object-fit: cover;
+        object-position: 35% top;
     }
 
     .hero {
@@ -1903,18 +1943,19 @@ html:not(.reduce-motion) .hero-scroll-cue span {
     }
 
     .hero-visual-scrim {
-        /* A real photo has far more visual noise than the old synthetic
-           graphic did, and on a single-column mobile layout the headline
-           can land over any part of it — so a flat, uniform wash (first
-           layer) guarantees contrast everywhere, not just near the edges. */
+        /* A cinematic top vignette, not a flat wash: solid enough behind the
+           headline/tagline (which always sit near the top on a single-column
+           mobile layout) to guarantee contrast there, but fading out by
+           mid-hero so the photo/video keeps its real color where the CTAs
+           and specs panel — which have their own opaque glass backgrounds —
+           don't need it. */
         background:
-            linear-gradient(rgba(243, 248, 253, 0.68), rgba(243, 248, 253, 0.68)),
-            linear-gradient(0deg, var(--bg-base) 0%, rgba(243, 248, 253, 0.7) 35%, rgba(243, 248, 253, 0.3) 65%, rgba(243, 248, 253, 0.12) 85%),
-            radial-gradient(140% 60% at 50% 0%, rgba(255, 255, 255, 0.35), transparent 60%);
+            linear-gradient(180deg, var(--bg-base) 0%, rgba(243, 248, 253, 0.92) 14%, rgba(243, 248, 253, 0.6) 34%, rgba(243, 248, 253, 0.22) 52%, transparent 68%),
+            radial-gradient(140% 60% at 50% 0%, rgba(255, 255, 255, 0.3), transparent 60%);
     }
 
     .hero-title {
-        text-shadow: 0 2px 3px rgba(243, 248, 253, 0.9), 0 0 24px rgba(243, 248, 253, 0.85);
+        text-shadow: 0 2px 4px rgba(243, 248, 253, 0.95), 0 0 20px rgba(243, 248, 253, 0.9);
     }
 
     .hero-frame-counter {
@@ -2050,8 +2091,13 @@ html:not(.reduce-motion) .hero-scroll-cue span {
     }
 
     .media-band-video,
-    .contact-video {
+    .contact-video,
+    .hero-visual-video {
         display: none;
+    }
+
+    .hero-visual-base {
+        opacity: 1 !important;
     }
 }
 

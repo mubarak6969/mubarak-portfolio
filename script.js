@@ -212,6 +212,82 @@ if (typeof gsap === 'undefined') {
 }
 
 // ==========================================
+// HERO MEDIA CROSSFADE
+// The hero always starts on the static photo (the only state that's
+// guaranteed to look correct — video autoplay can be blocked, the file can
+// fail to load, the network can be slow). After ~2s, if the video is
+// actually playing, it crossfades in over the photo. If anything goes
+// wrong at any step, nothing here ever hides the photo — it just stays.
+// ==========================================
+function initHeroMediaCrossfade() {
+    const base = document.querySelector('.hero-visual-base');
+    const video = document.querySelector('.hero-visual-video');
+    if (!base || !video) return;
+
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+        return; // CSS already hides the video and pins the photo at opacity 1.
+    }
+
+    const src = video.dataset.src;
+    if (!src) return;
+
+    let crossfadeStarted = false;
+    function crossfade() {
+        if (crossfadeStarted) return;
+        crossfadeStarted = true;
+        setTimeout(() => {
+            video.classList.add('is-playing');
+            base.classList.add('is-faded');
+        }, 2000);
+    }
+
+    function attemptPlay() {
+        const playPromise = video.play();
+        if (playPromise && playPromise.then) {
+            playPromise.then(crossfade).catch(() => {
+                // Autoplay blocked, or the file failed — the photo stays
+                // exactly as it was on load. No broken video, no black
+                // rectangle.
+            });
+        } else {
+            crossfade();
+        }
+    }
+
+    video.muted = true;
+    video.setAttribute('src', src);
+    video.load();
+
+    // Calling play() before the browser has buffered enough of the file
+    // gets rejected even though the file is perfectly fine — wait for
+    // canplay (already satisfied instantly if it's cached/fast) rather than
+    // racing the network.
+    if (video.readyState >= 3) {
+        attemptPlay();
+    } else {
+        video.addEventListener('canplay', attemptPlay, { once: true });
+    }
+
+    // Stop decoding the loop once the hero scrolls out of view, resume when
+    // it's back — the same "don't burn battery off-screen" rule as the
+    // other ambient video loops on this page.
+    if ('IntersectionObserver' in window) {
+        const hero = document.getElementById('home');
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach((entry) => {
+                if (!video.classList.contains('is-playing')) return;
+                if (entry.isIntersecting) {
+                    video.play().catch(() => {});
+                } else {
+                    video.pause();
+                }
+            });
+        }, { threshold: 0.1 });
+        observer.observe(hero);
+    }
+}
+
+// ==========================================
 // AMBIENT PERSONAL VIDEO LOOPS
 // Lazily loads and plays the background video loops only while they're
 // actually in the viewport, and only on wider viewports — narrow/mobile
@@ -247,4 +323,5 @@ function initAmbientVideos() {
 
 // Initial render
 renderProjects();
+initHeroMediaCrossfade();
 initAmbientVideos();
