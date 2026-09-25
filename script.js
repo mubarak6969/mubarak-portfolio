@@ -63,14 +63,12 @@ function showToast(message, type = 'success') {
 
 // ==========================================
 // PUBLIC PROJECTS
-// Loaded from the database via /api/projects — the server is the only
-// authority on what's published; there is no client-side project storage
-// or admin control on this page. Project management lives at /admin.
+// Rendered from the local static data in data/projects.js — no backend,
+// no database, no API call. See that file for the source of truth.
 // ==========================================
-// Escapes text content before it lands in innerHTML. Project data only ever
-// comes from the single authenticated admin, but escaping here means even a
-// compromised admin session can't turn a project field into stored XSS
-// served to every visitor.
+// Escapes text content before it lands in innerHTML. Kept even though the
+// project data is local/static, as defense-in-depth and so this function
+// behaves identically to how it always has.
 function escapeHtml(str) {
     const div = document.createElement('div');
     div.textContent = str == null ? '' : String(str);
@@ -93,55 +91,63 @@ function safeUrl(url) {
     return /^https?:\/\//i.test(url.trim()) ? url.trim() : '';
 }
 
+// The whole card is clickable (opens the case study), but it also contains
+// real <a> links (GitHub/Demo) — an <a> cannot legally contain another <a>,
+// so the card itself is a div[role="button"] with a click/keydown handler,
+// the same pattern used elsewhere in this codebase for a clickable card
+// that must contain real links.
 function renderProjectCards(projects) {
     const grid = document.getElementById('projectsGrid');
     grid.innerHTML = projects.map(project => {
         const githubUrl = safeUrl(project.github);
         const demoUrl = safeUrl(project.demo);
+        const caseStudyUrl = `project.html?slug=${encodeURIComponent(project.slug)}`;
         return `
-        <div class="glass-card project-card reveal">
+        <div class="glass-card project-card reveal" role="button" tabindex="0" data-href="${escapeAttr(caseStudyUrl)}" aria-label="Read the ${escapeAttr(project.title)} case study">
             <div class="project-image">
-                <i class="fas ${escapeAttr(project.icon)}"></i>
+                <i class="fas ${escapeAttr(project.icon || 'fa-code')}"></i>
             </div>
             <div class="project-tags">
-                ${project.technologies.map(tech => `<span class="project-tag">${escapeHtml(tech)}</span>`).join('')}
+                <span class="project-tag">${escapeHtml(project.category)}</span>
             </div>
             <h3>${escapeHtml(project.title)}</h3>
-            <p>${escapeHtml(project.description)}</p>
+            <p>${escapeHtml(project.tagline)}</p>
             <div class="project-links">
+                <a href="${escapeAttr(caseStudyUrl)}"><i class="fas fa-book-open"></i> Read case study</a>
                 ${githubUrl ? `<a href="${escapeAttr(githubUrl)}" target="_blank"><i class="fab fa-github"></i> Code</a>` : ''}
-                ${project.demo ? `<a href="${demoUrl || '#'}" target="_blank"><i class="fas fa-external-link-alt"></i> ${escapeHtml(project.demo)}</a>` : ''}
+                ${demoUrl ? `<a href="${escapeAttr(demoUrl)}" target="_blank"><i class="fas fa-external-link-alt"></i> Demo</a>` : ''}
             </div>
         </div>
     `;
     }).join('');
 }
 
-async function renderProjects() {
+// Clicking anywhere on a project card navigates to its case study, unless
+// the click landed on one of the card's own real links (which handle
+// themselves natively).
+document.addEventListener('click', (e) => {
+    const card = e.target.closest('.project-card');
+    if (!card || e.target.closest('a')) return;
+    const href = card.dataset.href;
+    if (href) window.location.href = href;
+});
+document.addEventListener('keydown', (e) => {
+    if (e.key !== 'Enter' && e.key !== ' ') return;
+    const card = e.target.closest && e.target.closest('.project-card');
+    if (!card || e.target.closest('a')) return;
+    e.preventDefault();
+    const href = card.dataset.href;
+    if (href) window.location.href = href;
+});
+
+function renderProjects() {
     const grid = document.getElementById('projectsGrid');
+    const projects = window.PORTFOLIO_PROJECTS || [];
 
-    // Only show the loading treatment if the request is actually slow —
-    // avoids a flash of spinner on a fast connection.
-    const loadingTimer = setTimeout(() => {
-        grid.innerHTML = '<div class="projects-loading"><div class="projects-spinner"></div></div>';
-    }, 200);
-
-    try {
-        const res = await fetch('/api/projects');
-        clearTimeout(loadingTimer);
-        if (!res.ok) throw new Error('Request failed');
-
-        const data = await res.json();
-        const projects = data.projects || [];
-
-        if (!projects.length) {
-            grid.innerHTML = '<p class="projects-empty">Projects are coming soon — check back shortly.</p>';
-        } else {
-            renderProjectCards(projects);
-        }
-    } catch (err) {
-        clearTimeout(loadingTimer);
-        grid.innerHTML = '<p class="projects-error">Projects are temporarily unavailable. Please check back soon.</p>';
+    if (!projects.length) {
+        grid.innerHTML = '<p class="projects-empty">Projects are coming soon — check back shortly.</p>';
+    } else {
+        renderProjectCards(projects);
     }
 
     window.dispatchEvent(new CustomEvent('portfolio:projectsRendered'));
@@ -205,5 +211,40 @@ if (typeof gsap === 'undefined') {
     revealOnScroll();
 }
 
+// ==========================================
+// AMBIENT PERSONAL VIDEO LOOPS
+// Lazily loads and plays the background video loops only while they're
+// actually in the viewport, and only on wider viewports — narrow/mobile
+// screens keep the static fallback image instead (CSS also hides <video>
+// there), to protect mobile performance and data usage.
+// ==========================================
+function initAmbientVideos() {
+    const isNarrowViewport = window.matchMedia('(max-width: 768px)').matches;
+    if (isNarrowViewport) return;
+
+    const videos = document.querySelectorAll('.media-band-video, .contact-video');
+    if (!videos.length || !('IntersectionObserver' in window)) return;
+
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach((entry) => {
+            const video = entry.target;
+            if (entry.isIntersecting) {
+                if (!video.getAttribute('src') && video.dataset.src) {
+                    video.setAttribute('src', video.dataset.src);
+                }
+                const playPromise = video.play();
+                if (playPromise && playPromise.then) {
+                    playPromise.then(() => video.classList.add('is-playing')).catch(() => {});
+                }
+            } else {
+                video.pause();
+            }
+        });
+    }, { threshold: 0.25 });
+
+    videos.forEach((video) => observer.observe(video));
+}
+
 // Initial render
 renderProjects();
+initAmbientVideos();

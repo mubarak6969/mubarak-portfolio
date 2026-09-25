@@ -25,11 +25,11 @@
         var lines = document.querySelectorAll('.hero-title .line-inner');
         var kicker = document.querySelector('[data-hero="kicker"]');
         var copy = document.querySelector('[data-hero="copy"]');
+        var ctas = document.querySelector('[data-hero="ctas"]');
         var controls = document.querySelector('[data-hero="controls"]');
-        var product = document.querySelector('[data-hero="product"]');
         var specs = document.querySelector('[data-hero="specs"]');
         var frameCounter = document.querySelector('.hero-frame-counter');
-        var supporting = [kicker, controls, product, specs, frameCounter].filter(Boolean);
+        var supporting = [kicker, ctas, controls, specs, frameCounter].filter(Boolean);
 
         if (reduceMotion) return; // elements are already visible via base CSS.
 
@@ -47,8 +47,8 @@
           .to(kicker, { y: 0, opacity: 1, filter: 'blur(0px)', duration: 0.6 }, 0.35)
           .to(lines, { y: 0, opacity: 1, duration: 0.7, stagger: 0.1, ease: 'power3.out' }, 0.45)
           .to(copy, { y: 0, opacity: 1, filter: 'blur(0px)', duration: 0.7 }, 0.85)
-          .to(controls, { y: 0, opacity: 1, filter: 'blur(0px)', duration: 0.6, stagger: 0.06 }, 0.95)
-          .to(product, { y: 0, opacity: 1, filter: 'blur(0px)', duration: 0.7 }, 1.05)
+          .to(ctas, { y: 0, opacity: 1, filter: 'blur(0px)', duration: 0.7, stagger: 0.06 }, 0.95)
+          .to(controls, { y: 0, opacity: 1, filter: 'blur(0px)', duration: 0.6, stagger: 0.06 }, 1.05)
           .to(specs, { y: 0, opacity: 1, filter: 'blur(0px)', duration: 0.7 }, 1.0)
           .to(frameCounter, { y: 0, opacity: 1, filter: 'blur(0px)', duration: 0.6 }, 0.6);
     }

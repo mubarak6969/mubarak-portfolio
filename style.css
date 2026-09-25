@@ -300,29 +300,14 @@ body {
     z-index: 0;
 }
 
-.hero-visual-base,
-.hero-visual-reveal {
+.hero-visual-base {
     position: absolute;
     /* Shifted right so the figure sits beside the headline, not behind it. */
     inset: 0 -16% 0 16%;
-    background-image: var(--hero-img, none);
+    background-image: url('images/personal/hero-workspace.webp');
     background-size: cover;
-    background-position: center right;
-    will-change: transform, opacity;
-}
-
-.hero-visual-base { background-image: url('images/hero-base-ice.webp'); }
-
-/* Cursor/touch spotlight: JS (cyber-spotlight.js) writes --spot-x/--spot-y/
-   --spot-r on this element every frame. A radial-gradient mask is the only
-   thing that needs to move — the two images themselves stay static, so this
-   stays cheap even on lower-end devices. */
-.hero-visual-reveal {
-    background-image: url('images/hero-reveal-ice.webp');
-    -webkit-mask-image: radial-gradient(circle var(--spot-r, 0px) at var(--spot-x, 50%) var(--spot-y, 50%), #000 60%, transparent 100%);
-    mask-image: radial-gradient(circle var(--spot-r, 0px) at var(--spot-x, 50%) var(--spot-y, 50%), #000 60%, transparent 100%);
-    -webkit-mask-repeat: no-repeat;
-    mask-repeat: no-repeat;
+    background-position: center 22%;
+    will-change: transform;
 }
 
 .hero-visual-scrim {
@@ -405,6 +390,13 @@ body {
 
 /* Three circular icon buttons — real contact links, not decoration;
    see index.html (GitHub / LinkedIn / Email). */
+.hero-ctas {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 16px;
+    margin-bottom: 28px;
+}
+
 .hero-controls {
     display: flex;
     gap: 14px;
@@ -796,6 +788,58 @@ html:not(.reduce-motion) .hero-scroll-cue span {
     align-items: center;
 }
 
+.about-personal {
+    display: flex;
+    gap: 30px;
+    align-items: flex-start;
+}
+
+.about-portrait {
+    flex: 0 0 200px;
+    width: 200px;
+    border-radius: var(--radius-md);
+    overflow: hidden;
+    border: 1px solid var(--glass-border);
+    position: relative;
+    aspect-ratio: 3 / 4;
+}
+
+.about-portrait::before,
+.about-portrait::after {
+    content: '';
+    position: absolute;
+    width: 18px;
+    height: 18px;
+    border: 1.5px solid var(--accent);
+    z-index: 2;
+    pointer-events: none;
+}
+
+.about-portrait::before {
+    top: -1px;
+    left: -1px;
+    border-right: none;
+    border-bottom: none;
+}
+
+.about-portrait::after {
+    bottom: -1px;
+    right: -1px;
+    border-left: none;
+    border-top: none;
+}
+
+.about-portrait img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+}
+
+.about-text {
+    min-width: 0;
+}
+
 .about-text h3 {
     font-size: 1.8rem;
     margin-bottom: 20px;
@@ -918,6 +962,7 @@ html:not(.reduce-motion) .hero-scroll-cue span {
 .project-card {
     overflow: hidden;
     position: relative;
+    cursor: pointer;
 }
 
 .project-card::before {
@@ -1102,6 +1147,30 @@ html:not(.reduce-motion) .hero-scroll-cue span {
 .experience-company {
     color: var(--text-secondary);
     font-size: 0.95rem;
+}
+
+.experience-layout {
+    display: grid;
+    grid-template-columns: 200px 1fr;
+    gap: 30px;
+    align-items: start;
+}
+
+.experience-accent {
+    position: sticky;
+    top: 110px;
+    border-radius: var(--radius-md);
+    overflow: hidden;
+    border: 1px solid var(--glass-border);
+    aspect-ratio: 3 / 4;
+}
+
+.experience-accent img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    opacity: 0.9;
 }
 
 .experience-timeline {
@@ -1331,6 +1400,35 @@ html:not(.reduce-motion) .hero-scroll-cue span {
     text-decoration: underline;
 }
 
+.contact-video-card {
+    margin-top: 30px;
+    position: relative;
+    aspect-ratio: 16 / 10;
+    border-radius: var(--radius-md);
+    overflow: hidden;
+    border: 1px solid var(--glass-border);
+    max-width: 380px;
+}
+
+.contact-video-fallback,
+.contact-video {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+}
+
+.contact-video {
+    opacity: 0;
+    transition: opacity 0.6s var(--ease-ice);
+}
+
+.contact-video.is-playing {
+    opacity: 1;
+}
+
 .contact-form {
     display: flex;
     flex-direction: column;
@@ -1371,6 +1469,68 @@ html:not(.reduce-motion) .hero-scroll-cue span {
 .form-group input::placeholder,
 .form-group textarea::placeholder {
     color: var(--text-secondary);
+}
+
+/* Ambient personal media band — a slim cinematic break between sections */
+.media-band {
+    position: relative;
+    height: 42vh;
+    min-height: 280px;
+    max-height: 460px;
+    overflow: hidden;
+    display: flex;
+    align-items: flex-end;
+    justify-content: flex-start;
+    isolation: isolate;
+}
+
+.media-band-visual {
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+}
+
+.media-band-fallback,
+.media-band-video {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+}
+
+.media-band-video {
+    opacity: 0;
+    transition: opacity 0.8s var(--ease-ice);
+}
+
+.media-band-video.is-playing {
+    opacity: 1;
+}
+
+.media-band-scrim {
+    position: absolute;
+    inset: 0;
+    z-index: 1;
+    background: linear-gradient(0deg, var(--bg-base) 0%, rgba(243, 248, 253, 0.55) 30%, rgba(243, 248, 253, 0.1) 60%, transparent 100%);
+}
+
+.media-band-caption {
+    position: relative;
+    z-index: 2;
+    padding: 0 50px 36px;
+}
+
+@media (max-width: 768px) {
+    .media-band {
+        height: 30vh;
+        min-height: 200px;
+    }
+
+    .media-band-caption {
+        padding: 0 24px 24px;
+    }
 }
 
 /* Footer */
@@ -1657,6 +1817,23 @@ html:not(.reduce-motion) .hero-scroll-cue span {
         grid-template-columns: 1fr;
     }
 
+    .about-personal {
+        flex-direction: column;
+    }
+
+    .about-portrait {
+        width: 140px;
+        flex-basis: 140px;
+    }
+
+    .experience-layout {
+        grid-template-columns: 1fr;
+    }
+
+    .experience-accent {
+        display: none;
+    }
+
     .navbar {
         padding: 15px 20px;
     }
@@ -1706,9 +1883,9 @@ html:not(.reduce-motion) .hero-scroll-cue span {
    screen.
    ========================================================================== */
 @media (max-width: 768px) {
-    .hero-visual-base,
-    .hero-visual-reveal {
+    .hero-visual-base {
         inset: 0;
+        background-position: center 18%;
     }
 
     .hero {
@@ -1726,9 +1903,18 @@ html:not(.reduce-motion) .hero-scroll-cue span {
     }
 
     .hero-visual-scrim {
+        /* A real photo has far more visual noise than the old synthetic
+           graphic did, and on a single-column mobile layout the headline
+           can land over any part of it — so a flat, uniform wash (first
+           layer) guarantees contrast everywhere, not just near the edges. */
         background:
-            linear-gradient(0deg, var(--bg-base) 0%, rgba(243, 248, 253, 0.55) 40%, rgba(243, 248, 253, 0.15) 65%, transparent 85%),
-            radial-gradient(140% 60% at 50% 0%, rgba(255, 255, 255, 0.3), transparent 60%);
+            linear-gradient(rgba(243, 248, 253, 0.68), rgba(243, 248, 253, 0.68)),
+            linear-gradient(0deg, var(--bg-base) 0%, rgba(243, 248, 253, 0.7) 35%, rgba(243, 248, 253, 0.3) 65%, rgba(243, 248, 253, 0.12) 85%),
+            radial-gradient(140% 60% at 50% 0%, rgba(255, 255, 255, 0.35), transparent 60%);
+    }
+
+    .hero-title {
+        text-shadow: 0 2px 3px rgba(243, 248, 253, 0.9), 0 0 24px rgba(243, 248, 253, 0.85);
     }
 
     .hero-frame-counter {
@@ -1861,6 +2047,11 @@ html:not(.reduce-motion) .hero-scroll-cue span {
 
     .hero-title .line-mask {
         overflow: visible;
+    }
+
+    .media-band-video,
+    .contact-video {
+        display: none;
     }
 }
 

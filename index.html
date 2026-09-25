@@ -8,7 +8,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Orbitron:wght@500;600;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="stylesheet" href="style.css">
-    <link rel="preload" as="image" href="images/hero-base-ice.webp">
+    <link rel="preload" as="image" href="images/personal/hero-workspace.webp">
 </head>
 <body>
     <!-- Background Animation -->
@@ -39,11 +39,10 @@
         </div>
     </nav>
 
-    <!-- Hero Section — Cyber Ronin // Neural Edges -->
+    <!-- Hero Section — Cyber Ronin // Neural Edges, personal photo composition -->
     <section class="hero" id="home">
         <div class="hero-visual" data-hero="visual" aria-hidden="true">
-            <div class="hero-visual-base" data-spotlight-base></div>
-            <div class="hero-visual-reveal" data-spotlight-reveal></div>
+            <div class="hero-visual-base"></div>
             <div class="hero-visual-scrim"></div>
         </div>
 
@@ -53,27 +52,23 @@
             <div class="hero-main">
                 <p class="hero-kicker" data-hero="kicker">Mohammed Mubarak // Computer Science Engineer</p>
                 <h1 class="hero-title" data-hero="title">
-                    <span class="line-mask"><span class="line-inner">PYTHON //</span></span>
-                    <span class="line-mask"><span class="line-inner highlight">AI &amp; ML</span></span>
-                    <span class="line-mask"><span class="line-inner">ENGINEER</span></span>
+                    <span class="line-mask"><span class="line-inner">PYTHON BACKEND</span></span>
+                    <span class="line-mask"><span class="line-inner highlight">DEVELOPER</span></span>
+                    <span class="line-mask"><span class="line-inner">AI // ML ENGINEER</span></span>
                 </h1>
                 <p class="hero-copy" data-hero="copy">
-                    Computer Science Engineer focused on Python, backend development, AI and Machine Learning &mdash; building reliable software and intelligent systems that turn ideas into useful products.
+                    I build scalable web applications and intelligent systems using Python, AI and modern technologies &mdash; turning ideas into reliable, production-ready software.
                 </p>
+
+                <div class="hero-ctas" data-hero="ctas">
+                    <a href="#projects" class="btn-primary magnetic">View My Work</a>
+                    <a href="Mohammed_Mubarak_Resume.pdf" download class="btn-secondary magnetic"><i class="fas fa-file-arrow-down"></i> Download Resume</a>
+                </div>
 
                 <div class="hero-controls" data-hero="controls">
                     <a class="hero-icon-btn magnetic" href="https://github.com/mubarak6969" target="_blank" aria-label="GitHub profile"><i class="fab fa-github"></i></a>
                     <a class="hero-icon-btn magnetic" href="https://www.linkedin.com/in/mohammed-mubarak-0522a1257/" target="_blank" aria-label="LinkedIn profile"><i class="fab fa-linkedin-in"></i></a>
                     <a class="hero-icon-btn magnetic" href="mailto:mubarak7842a@gmail.com" aria-label="Send an email"><i class="fas fa-envelope"></i></a>
-                </div>
-
-                <div class="product-card" data-hero="product">
-                    <div class="product-card-thumb" aria-hidden="true">MM</div>
-                    <div class="product-card-body">
-                        <span class="product-card-eyebrow">Mohammed Mubarak &middot; B.Tech CSE &middot; 2025</span>
-                        <p class="product-card-desc">CGPA 8.9/10 &mdash; Open to entry-level Backend / Python Developer roles</p>
-                        <a href="#projects" class="btn-primary product-card-cta magnetic">Explore Projects</a>
-                    </div>
                 </div>
             </div>
 
@@ -101,7 +96,11 @@
             <p class="section-subtitle">Python, backend and applied AI/ML</p>
         </div>
         <div class="about-grid">
-            <div class="about-text reveal" data-dir="left">
+            <div class="about-personal reveal" data-dir="left">
+                <div class="about-portrait">
+                    <img src="images/personal/about-portrait.webp" alt="Mohammed Mubarak at his desk" loading="lazy" width="1200" height="1350">
+                </div>
+                <div class="about-text">
                 <h3>Computer Science Engineer from Chennai</h3>
                 <p>B.Tech Computer Science graduate (2025, CGPA 8.9/10) with strong fundamentals in Python, data structures and algorithms, SQL databases, and backend development, including REST APIs and HTTP.</p>
                 <p>I completed internships in Web Development and Machine Learning and built projects that add practical AI/ML skills such as machine learning algorithms and computer vision. I&rsquo;m seeking an entry-level Backend / Python Developer role to build reliable software and keep learning from experienced engineers.</p>
@@ -136,6 +135,7 @@
                         <div class="stat-number" data-count="100" data-suffix="+">100+</div>
                         <div class="stat-label">LeetCode Solved</div>
                     </div>
+                </div>
                 </div>
             </div>
             <div class="skills-grid reveal" data-dir="right">
@@ -180,6 +180,10 @@
             <h2 class="section-title">Where I&rsquo;ve Worked</h2>
             <p class="section-subtitle">Hands-on internships in machine learning and web development</p>
         </div>
+        <div class="experience-layout">
+        <div class="experience-accent reveal" data-dir="left" aria-hidden="true">
+            <img src="images/personal/experience-workspace.webp" alt="" loading="lazy" width="1200" height="900">
+        </div>
         <div class="experience-timeline">
             <div class="glass-card experience-card reveal" data-dir="left">
                 <div class="experience-card-header">
@@ -204,6 +208,7 @@
                     <li>Worked with MySQL tables and built responsive pages using HTML, CSS, and JavaScript.</li>
                 </ul>
             </div>
+        </div>
         </div>
 
         <div class="credentials-grid">
@@ -231,7 +236,19 @@
         </div>
     </section>
 
-    
+    <!-- Ambient Personal Media Band -->
+    <section class="media-band" aria-label="Behind the code">
+        <div class="media-band-visual">
+            <img class="media-band-fallback" src="images/personal/hero-workspace.webp" alt="Mohammed Mubarak working at his desk" loading="lazy">
+            <video class="media-band-video" data-src="videos/desk-ambient-1.mp4" muted loop playsinline preload="none" aria-hidden="true"></video>
+        </div>
+        <div class="media-band-scrim"></div>
+        <div class="media-band-caption reveal">
+            <span class="section-label">Behind The Code</span>
+        </div>
+    </section>
+
+
 <!-- Projects Section -->
     <section class="section" id="projects">
         <div class="section-header reveal">
@@ -347,6 +364,10 @@
                         </div>
                     </div>
                 </div>
+                <div class="contact-video-card reveal">
+                    <img class="contact-video-fallback" src="images/personal/contact-portrait.webp" alt="Mohammed Mubarak" loading="lazy">
+                    <video class="contact-video" data-src="videos/desk-ambient-2.mp4" muted loop playsinline preload="none" aria-hidden="true"></video>
+                </div>
             </div>
             <form class="contact-form glass-card reveal" onsubmit="handleWhatsAppContact(event)">
                 <div class="form-group">
@@ -389,8 +410,8 @@
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+    <script src="data/projects.js"></script>
     <script src="script.js"></script>
     <script src="animations.js"></script>
-    <script src="cyber-spotlight.js"></script>
 </body>
 </html>
