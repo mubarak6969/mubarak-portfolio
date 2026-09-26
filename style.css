@@ -276,89 +276,50 @@ body {
 }
 
 /* ==========================================================================
-   Hero Section — Cyber Ronin // Neural Edges cinematic composition.
-   Layer order: hero-visual (base + cursor-revealed layer) < scrim < content.
+   Hero Section — complete personal photo, then headline content below it.
    ========================================================================== */
 .hero {
-    min-height: 100vh;
-    min-height: 100svh;
-    display: flex;
-    align-items: center;
-    padding: 120px 50px 60px;
-    padding-top: calc(120px + env(safe-area-inset-top, 0px));
-    padding-left: calc(50px + env(safe-area-inset-left, 0px));
-    padding-right: calc(50px + env(safe-area-inset-right, 0px));
     position: relative;
-    overflow: hidden;
-    isolation: isolate;
+    /* Just enough top clearance for the fixed navbar (its real measured
+       height, not a guess) — tight, not a gap — so the photo starts
+       immediately below it rather than hiding behind it or leaving a
+       strip of plain background above it. */
+    padding: 73px 0 60px;
+    padding-top: calc(73px + env(safe-area-inset-top, 0px));
     background: var(--bg-base);
+    overflow: hidden;
 }
 
+/* The complete photo, at its own real aspect ratio — nothing forces a
+   crop, so the top of the frame (hair/head) can never be cut off, and
+   there is never a gap between the fixed navbar and the image: the image
+   is simply the first thing in the hero's normal flow. */
 .hero-visual {
-    position: absolute;
-    inset: -14% 0 0 0;
-    z-index: 0;
+    position: relative;
+    width: 100%;
+    line-height: 0;
+    isolation: isolate;
 }
 
-.hero-visual-base {
-    position: absolute;
-    /* Shifted right so the figure sits beside the headline, not behind it. */
-    inset: 0 -16% 0 16%;
-    background-image: url('images/personal/hero-workspace.webp');
-    background-size: cover;
-    background-position: 62% 22%;
-    will-change: transform, opacity;
-    transition: opacity 1.2s var(--ease-ice);
-}
-
-.hero-visual-base.is-faded {
-    opacity: 0;
-}
-
-/* The hero video is the animated twin of the base photo — same crop, same
-   framing — so the crossfade reads as the shot coming alive, not a swap.
-   Starts invisible: the base <img> is the only guaranteed-safe state (video
-   autoplay can be blocked, the file can fail to load), so nothing here ever
-   assumes the video will actually play. */
-.hero-visual-video {
-    position: absolute;
-    inset: 0 -16% 0 16%;
-    width: calc(100% + 16%);
-    height: 100%;
-    object-fit: cover;
-    object-position: 62% 22%;
-    opacity: 0;
-    transition: opacity 1.2s var(--ease-ice);
-    will-change: opacity;
-}
-
-.hero-visual-video.is-playing {
-    opacity: 1;
-}
-
-/* A dark cinematic vignette, not a white wash — keeps the photo's real
-   color and brightness intact past ~65% of the hero width, and only
-   darkens (never bleaches) the zone directly behind the headline. Hero
-   text switches to white/light against this (see .hero-kicker etc. below)
-   instead of the site's usual dark-on-light text. */
-.hero-visual-scrim {
-    position: absolute;
-    inset: 0;
-    background:
-        linear-gradient(100deg, rgba(11, 18, 32, 0.82) 0%, rgba(11, 18, 32, 0.62) 20%, rgba(11, 18, 32, 0.3) 38%, rgba(11, 18, 32, 0.08) 55%, transparent 68%),
-        linear-gradient(0deg, rgba(11, 18, 32, 0.45) 0%, transparent 24%),
-        radial-gradient(140% 90% at 50% -20%, rgba(255, 255, 255, 0.06), transparent 60%);
+.hero-visual-img {
+    display: block;
+    width: 100%;
+    height: auto;
 }
 
 .hero-frame-counter {
     position: absolute;
-    top: calc(100px + env(safe-area-inset-top, 0px));
-    right: calc(50px + env(safe-area-inset-right, 0px));
+    top: calc(20px + env(safe-area-inset-top, 0px));
+    right: calc(20px + env(safe-area-inset-right, 0px));
     z-index: 2;
     font-family: var(--font-display);
-    font-size: 0.85rem;
+    font-size: 0.78rem;
     letter-spacing: 0.12em;
-    color: rgba(255, 255, 255, 0.6);
+    color: #ffffff;
+    background: rgba(11, 18, 32, 0.55);
+    backdrop-filter: blur(6px);
+    padding: 6px 14px;
+    border-radius: var(--radius-sm);
 }
 
 .hero-content {
@@ -367,10 +328,13 @@ body {
     display: grid;
     grid-template-columns: minmax(0, 1.15fr) minmax(0, 0.7fr);
     gap: 60px;
-    align-items: end;
+    align-items: start;
     max-width: 1320px;
     width: 100%;
     margin: 0 auto;
+    padding: 48px 50px 0;
+    padding-left: calc(50px + env(safe-area-inset-left, 0px));
+    padding-right: calc(50px + env(safe-area-inset-right, 0px));
 }
 
 .hero-kicker {
@@ -378,7 +342,7 @@ body {
     font-size: 0.75rem;
     letter-spacing: 0.22em;
     text-transform: uppercase;
-    color: rgba(255, 255, 255, 0.7);
+    color: var(--text-muted);
     margin-bottom: 18px;
 }
 
@@ -390,8 +354,7 @@ body {
     line-height: 1.04;
     text-transform: uppercase;
     margin-bottom: 20px;
-    color: #ffffff;
-    text-shadow: 0 4px 24px rgba(0, 0, 0, 0.45);
+    color: var(--text-primary);
 }
 
 .hero-title .line-mask {
@@ -404,10 +367,7 @@ body {
 }
 
 .hero-title .highlight {
-    /* A light-to-accent gradient, not the dark accent-dim end used
-       elsewhere on the site — that would go nearly invisible against the
-       hero's own dark scrim. */
-    background: linear-gradient(135deg, var(--accent-warm), var(--accent));
+    background: linear-gradient(135deg, var(--accent), var(--accent-dim));
     background-size: 200% auto;
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
@@ -416,7 +376,7 @@ body {
 
 .hero-copy {
     font-size: 1.05rem;
-    color: rgba(255, 255, 255, 0.85);
+    color: var(--text-secondary);
     line-height: 1.75;
     max-width: 46ch;
     margin-bottom: 28px;
@@ -646,43 +606,6 @@ body {
 
 .btn-secondary:active {
     transform: translateY(-1px);
-}
-
-.hero-scroll-cue {
-    position: absolute;
-    left: 50%;
-    bottom: 28px;
-    transform: translateX(-50%);
-    z-index: 2;
-    width: 26px;
-    height: 42px;
-    /* A light border, not the site-wide dark-tinted --glass-border — this
-       sits directly on the hero's dark scrim, where a dark border would
-       disappear. */
-    border: 1px solid rgba(255, 255, 255, 0.4);
-    border-radius: 14px;
-    display: flex;
-    justify-content: center;
-    padding-top: 8px;
-    background: transparent;
-    cursor: pointer;
-}
-
-.hero-scroll-cue span {
-    width: 3px;
-    height: 8px;
-    border-radius: 2px;
-    background: var(--accent);
-}
-
-html:not(.reduce-motion) .hero-scroll-cue span {
-    animation: scrollCueDrop 1.8s ease infinite;
-}
-
-@keyframes scrollCueDrop {
-    0% { transform: translateY(0); opacity: 1; }
-    70% { transform: translateY(12px); opacity: 0; }
-    100% { transform: translateY(0); opacity: 0; }
 }
 
 /* Relocated from the old hero — same real numbers, now inside About. */
@@ -1043,6 +966,25 @@ html:not(.reduce-motion) .hero-scroll-cue span {
 
 .project-card:hover .project-image {
     transform: scale(1.05);
+}
+
+/* A real project cover photo — sized to its own exact aspect ratio (16:9,
+   matching every supplied cover image precisely), so cover-fit shows the
+   complete artwork with no cropping, rather than forcing it into the
+   fixed 200px icon-tile height above. */
+.project-image.has-cover {
+    height: auto;
+    aspect-ratio: 16 / 9;
+    background: var(--accent-dim);
+}
+
+.project-card-cover {
+    position: relative;
+    z-index: 1;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
 }
 
 .project-image::before {
@@ -1521,65 +1463,34 @@ html:not(.reduce-motion) .hero-scroll-cue span {
     color: var(--text-secondary);
 }
 
-/* Ambient personal media band — a slim cinematic break between sections */
+/* Personal media band — a contained, complete photo (not a full-bleed
+   crop), with breathing room around it like any other section. */
 .media-band {
-    position: relative;
-    height: 42vh;
-    min-height: 280px;
-    max-height: 460px;
-    overflow: hidden;
-    display: flex;
-    align-items: flex-end;
-    justify-content: flex-start;
-    isolation: isolate;
-}
-
-.media-band-visual {
-    position: absolute;
-    inset: 0;
-    z-index: 0;
-}
-
-.media-band-fallback,
-.media-band-video {
-    position: absolute;
-    inset: 0;
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    display: block;
-}
-
-.media-band-video {
-    opacity: 0;
-    transition: opacity 0.8s var(--ease-ice);
-}
-
-.media-band-video.is-playing {
-    opacity: 1;
-}
-
-.media-band-scrim {
-    position: absolute;
-    inset: 0;
-    z-index: 1;
-    background: linear-gradient(0deg, var(--bg-base) 0%, rgba(243, 248, 253, 0.55) 30%, rgba(243, 248, 253, 0.1) 60%, transparent 100%);
+    padding: 80px 50px;
+    max-width: 1000px;
+    margin: 0 auto;
+    text-align: center;
 }
 
 .media-band-caption {
-    position: relative;
-    z-index: 2;
-    padding: 0 50px 36px;
+    margin-bottom: 24px;
+}
+
+.media-band-visual {
+    border-radius: var(--radius-md);
+    overflow: hidden;
+    border: 1px solid var(--glass-border);
+}
+
+.media-band-fallback {
+    width: 100%;
+    height: auto;
+    display: block;
 }
 
 @media (max-width: 768px) {
     .media-band {
-        height: 30vh;
-        min-height: 200px;
-    }
-
-    .media-band-caption {
-        padding: 0 24px 24px;
+        padding: 56px 24px;
     }
 }
 
@@ -1852,24 +1763,6 @@ html:not(.reduce-motion) .hero-scroll-cue span {
 
 /* Responsive */
 
-/* A shorter/more square viewport (e.g. 1024x768) makes cover-fit crop the
-   photo differently than a wide 16:9-ish desktop window (e.g. 1440x900),
-   even at the same background-position percentage — the face can end up
-   sliding left under the headline. This range pushes the crop further
-   right specifically for that in-between band. */
-@media (min-width: 969px) and (max-width: 1140px) {
-    .hero-visual-base {
-        inset: 0 -30% 0 30%;
-        background-position: 72% 22%;
-    }
-
-    .hero-visual-video {
-        inset: 0 -30% 0 30%;
-        width: calc(100% + 30%);
-        object-position: 72% 22%;
-    }
-}
-
 @media (max-width: 968px) {
     .bg-animation .orb {
         filter: blur(50px);
@@ -1930,43 +1823,14 @@ html:not(.reduce-motion) .hero-scroll-cue span {
 
 /* ==========================================================================
    Hero — mobile composition.
-   A full-bleed photo behind full-width headline text cannot avoid the
-   headline crossing the face on a real photo (the photo shows its complete
-   height on a portrait screen, and the face sits in that same upper band
-   where a single-column headline naturally falls) — so mobile uses a
-   different, intentional structure instead of forcing the desktop
-   composition into a narrow crop: the photo/video is its own block at the
-   top (complete, uncropped height-wise), and the headline sits below it on
-   the normal page background, in dark text like the rest of the site, never
-   over the photo at all.
+   The structure is identical to desktop (complete image, then headline
+   below it) — only spacing changes here. Nothing crops or repositions the
+   photo at any width, since it's never forced into a viewport-driven box.
    ========================================================================== */
 @media (max-width: 768px) {
     .hero {
-        display: flex;
-        flex-direction: column;
-        align-items: stretch;
-        padding: 0 0 48px;
-        min-height: 0;
-    }
-
-    .hero-visual {
-        position: relative;
-        inset: auto;
-        height: 52vh;
-        min-height: 360px;
-        width: 100%;
-        z-index: auto;
-    }
-
-    .hero-visual-base,
-    .hero-visual-video {
-        inset: 0;
-        width: 100%;
-        height: 100%;
-        top: 0;
-        object-fit: cover;
-        background-position: 32% 22%;
-        object-position: 32% 22%;
+        padding: 63px 0 48px;
+        padding-top: calc(63px + env(safe-area-inset-top, 0px));
     }
 
     .hero-frame-counter {
@@ -1974,49 +1838,12 @@ html:not(.reduce-motion) .hero-scroll-cue span {
         right: calc(16px + env(safe-area-inset-right, 0px));
     }
 
-    /* The image block still gets a light vignette at its own bottom edge
-       (a smooth handoff into the page background), not a contrast scrim —
-       the headline no longer sits on top of the photo, so it doesn't need
-       one. */
-    .hero-visual-scrim {
-        background: linear-gradient(180deg, transparent 60%, var(--bg-base) 100%);
-    }
-
-    .hero-scroll-cue {
-        display: none;
-    }
-
     .hero-content {
-        position: relative;
-        z-index: auto;
         grid-template-columns: 1fr;
         gap: 28px;
         padding: 32px 24px 0;
         padding-left: calc(24px + env(safe-area-inset-left, 0px));
         padding-right: calc(24px + env(safe-area-inset-right, 0px));
-    }
-
-    /* Back to the site's normal dark-on-light text — this content now sits
-       on the plain page background, not on the photo. */
-    .hero-kicker {
-        color: var(--text-muted);
-    }
-
-    .hero-title {
-        color: var(--text-primary);
-        text-shadow: none;
-    }
-
-    .hero-title .highlight {
-        background: linear-gradient(135deg, var(--accent), var(--accent-dim));
-        background-size: 200% auto;
-        -webkit-background-clip: text;
-        -webkit-text-fill-color: transparent;
-        background-clip: text;
-    }
-
-    .hero-copy {
-        color: var(--text-secondary);
     }
 
     .specs-panel {
@@ -2030,9 +1857,7 @@ html:not(.reduce-motion) .hero-scroll-cue span {
 }
 
 @media (max-width: 480px) {
-    .hero {
-        padding: 96px 18px 48px;
-        padding-top: calc(96px + env(safe-area-inset-top, 0px));
+    .hero-content {
         padding-left: calc(18px + env(safe-area-inset-left, 0px));
         padding-right: calc(18px + env(safe-area-inset-right, 0px));
     }
@@ -2133,27 +1958,12 @@ html:not(.reduce-motion) .hero-scroll-cue span {
         display: none;
     }
 
-    /* Spotlight cursor-reveal is inherently motion-driven (it tracks the
-       pointer every frame) — cyber-spotlight.js never attaches its
-       listeners when this media query matches, and this hides the layer
-       outright so nothing is left in a stale/frozen state. The base hero
-       image alone is a complete image, so nothing is lost. */
-    .hero-visual-reveal {
-        display: none;
-    }
-
     .hero-title .line-mask {
         overflow: visible;
     }
 
-    .media-band-video,
-    .contact-video,
-    .hero-visual-video {
+    .contact-video {
         display: none;
-    }
-
-    .hero-visual-base {
-        opacity: 1 !important;
     }
 }
 

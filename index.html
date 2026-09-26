@@ -39,15 +39,13 @@
         </div>
     </nav>
 
-    <!-- Hero Section — Cyber Ronin // Neural Edges, personal photo composition -->
+    <!-- Hero Section — personal photo, complete and uncropped, with the
+         headline positioned below it rather than forced to overlay it. -->
     <section class="hero" id="home">
-        <div class="hero-visual" data-hero="visual" aria-hidden="true">
-            <div class="hero-visual-base"></div>
-            <video class="hero-visual-video" data-src="videos/desk-ambient-1.mp4" muted loop playsinline preload="auto" poster="images/personal/hero-workspace.webp"></video>
-            <div class="hero-visual-scrim"></div>
+        <div class="hero-visual" data-hero="visual">
+            <img class="hero-visual-img" src="images/personal/hero-workspace.webp" alt="Mohammed Mubarak at his desk" width="1920" height="1080">
+            <span class="hero-frame-counter" aria-hidden="true">PORTFOLIO // 01</span>
         </div>
-
-        <span class="hero-frame-counter" aria-hidden="true">PORTFOLIO // 01</span>
 
         <div class="hero-content">
             <div class="hero-main">
@@ -83,10 +81,6 @@
                 </dl>
             </aside>
         </div>
-
-        <button class="hero-scroll-cue" type="button" data-scroll-cue aria-label="Scroll to explore">
-            <span aria-hidden="true"></span>
-        </button>
     </section>
 
     <!-- About Section -->
@@ -237,15 +231,14 @@
         </div>
     </section>
 
-    <!-- Ambient Personal Media Band — static image only; the ambient video
-         file lives exclusively in the hero, not duplicated here. -->
+    <!-- Personal Media Band — a complete, uncropped photo in its own
+         contained card, not a full-bleed banner. -->
     <section class="media-band" aria-label="Behind the code">
-        <div class="media-band-visual">
-            <img class="media-band-fallback" src="images/personal/hero-workspace.webp" alt="Mohammed Mubarak working at his desk" loading="lazy" width="1920" height="1080">
-        </div>
-        <div class="media-band-scrim"></div>
         <div class="media-band-caption reveal">
             <span class="section-label">Behind The Code</span>
+        </div>
+        <div class="media-band-visual reveal">
+            <img class="media-band-fallback" src="images/personal/hero-workspace.webp" alt="Mohammed Mubarak working at his desk" loading="lazy" width="1920" height="1080">
         </div>
     </section>
 

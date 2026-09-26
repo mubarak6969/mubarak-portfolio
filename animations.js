@@ -391,6 +391,16 @@
         init();
     }
 
+    // The hero's real height now comes entirely from its photo's natural
+    // aspect ratio (no more fixed viewport-height box), so ScrollTrigger's
+    // start/end math — calculated at init, before that image has actually
+    // finished loading — can be off by the height the image still had left
+    // to load. A refresh once everything (including images) has loaded
+    // recalculates it against the final layout.
+    window.addEventListener('load', function () {
+        if (typeof ScrollTrigger !== 'undefined') ScrollTrigger.refresh();
+    });
+
     // Admin add/edit/delete replaces the project grid's innerHTML, which
     // destroys the cards the entrance animation ran on — re-reveal the
     // fresh set immediately (the admin is already looking at this section)
