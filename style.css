@@ -336,13 +336,18 @@ body {
     opacity: 1;
 }
 
+/* A dark cinematic vignette, not a white wash — keeps the photo's real
+   color and brightness intact past ~65% of the hero width, and only
+   darkens (never bleaches) the zone directly behind the headline. Hero
+   text switches to white/light against this (see .hero-kicker etc. below)
+   instead of the site's usual dark-on-light text. */
 .hero-visual-scrim {
     position: absolute;
     inset: 0;
     background:
-        linear-gradient(100deg, var(--bg-base) 0%, var(--bg-base) 16%, rgba(243, 248, 253, 0.7) 30%, rgba(243, 248, 253, 0.1) 46%, transparent 60%),
-        linear-gradient(0deg, var(--bg-base) 0%, transparent 22%),
-        radial-gradient(140% 90% at 50% -20%, rgba(255, 255, 255, 0.35), transparent 60%);
+        linear-gradient(100deg, rgba(11, 18, 32, 0.82) 0%, rgba(11, 18, 32, 0.62) 20%, rgba(11, 18, 32, 0.3) 38%, rgba(11, 18, 32, 0.08) 55%, transparent 68%),
+        linear-gradient(0deg, rgba(11, 18, 32, 0.45) 0%, transparent 24%),
+        radial-gradient(140% 90% at 50% -20%, rgba(255, 255, 255, 0.06), transparent 60%);
 }
 
 .hero-frame-counter {
@@ -353,7 +358,7 @@ body {
     font-family: var(--font-display);
     font-size: 0.85rem;
     letter-spacing: 0.12em;
-    color: var(--text-muted);
+    color: rgba(255, 255, 255, 0.6);
 }
 
 .hero-content {
@@ -373,7 +378,7 @@ body {
     font-size: 0.75rem;
     letter-spacing: 0.22em;
     text-transform: uppercase;
-    color: var(--text-muted);
+    color: rgba(255, 255, 255, 0.7);
     margin-bottom: 18px;
 }
 
@@ -385,8 +390,8 @@ body {
     line-height: 1.04;
     text-transform: uppercase;
     margin-bottom: 20px;
-    color: var(--text-primary);
-    text-shadow: 0 2px 30px rgba(255, 255, 255, 0.7);
+    color: #ffffff;
+    text-shadow: 0 4px 24px rgba(0, 0, 0, 0.45);
 }
 
 .hero-title .line-mask {
@@ -399,7 +404,10 @@ body {
 }
 
 .hero-title .highlight {
-    background: linear-gradient(135deg, var(--accent), var(--accent-dim));
+    /* A light-to-accent gradient, not the dark accent-dim end used
+       elsewhere on the site — that would go nearly invisible against the
+       hero's own dark scrim. */
+    background: linear-gradient(135deg, var(--accent-warm), var(--accent));
     background-size: 200% auto;
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
@@ -408,7 +416,7 @@ body {
 
 .hero-copy {
     font-size: 1.05rem;
-    color: var(--text-secondary);
+    color: rgba(255, 255, 255, 0.85);
     line-height: 1.75;
     max-width: 46ch;
     margin-bottom: 28px;
@@ -648,7 +656,10 @@ body {
     z-index: 2;
     width: 26px;
     height: 42px;
-    border: 1px solid var(--glass-border);
+    /* A light border, not the site-wide dark-tinted --glass-border — this
+       sits directly on the hero's dark scrim, where a dark border would
+       disappear. */
+    border: 1px solid rgba(255, 255, 255, 0.4);
     border-radius: 14px;
     display: flex;
     justify-content: center;
@@ -814,20 +825,21 @@ html:not(.reduce-motion) .hero-scroll-cue span {
     align-items: center;
 }
 
+/* A full-width editorial image sits above the text, at the source photo's
+   own aspect ratio (16:9 — the real dimensions of every supplied personal
+   photo) — never forced into an unrelated crop box. */
 .about-personal {
     display: flex;
-    gap: 30px;
-    align-items: flex-start;
+    flex-direction: column;
+    gap: 24px;
 }
 
 .about-portrait {
-    flex: 0 0 200px;
-    width: 200px;
     border-radius: var(--radius-md);
     overflow: hidden;
     border: 1px solid var(--glass-border);
     position: relative;
-    aspect-ratio: 3 / 4;
+    max-width: 480px;
 }
 
 .about-portrait::before,
@@ -857,8 +869,7 @@ html:not(.reduce-motion) .hero-scroll-cue span {
 
 .about-portrait img {
     width: 100%;
-    height: 100%;
-    object-fit: cover;
+    height: auto;
     display: block;
 }
 
@@ -1175,28 +1186,28 @@ html:not(.reduce-motion) .hero-scroll-cue span {
     font-size: 0.95rem;
 }
 
+/* A wide editorial band above the timeline, not a narrow cropped sidebar —
+   sized to the source photo's own 16:9 aspect so the complete workspace
+   shot shows, never half-cut. */
 .experience-layout {
-    display: grid;
-    grid-template-columns: 200px 1fr;
+    display: flex;
+    flex-direction: column;
     gap: 30px;
-    align-items: start;
 }
 
 .experience-accent {
-    position: sticky;
-    top: 110px;
+    max-width: 760px;
+    margin: 0 auto;
+    width: 100%;
     border-radius: var(--radius-md);
     overflow: hidden;
     border: 1px solid var(--glass-border);
-    aspect-ratio: 3 / 4;
 }
 
 .experience-accent img {
     width: 100%;
-    height: 100%;
-    object-fit: cover;
+    height: auto;
     display: block;
-    opacity: 0.9;
 }
 
 .experience-timeline {
@@ -1429,11 +1440,14 @@ html:not(.reduce-motion) .hero-scroll-cue span {
 .contact-video-card {
     margin-top: 30px;
     position: relative;
-    aspect-ratio: 16 / 10;
+    /* Matches the real video file's own aspect ratio (1280x720) so the
+       video always fills it exactly, with zero cropping. */
+    aspect-ratio: 16 / 9;
     border-radius: var(--radius-md);
     overflow: hidden;
     border: 1px solid var(--glass-border);
-    max-width: 380px;
+    max-width: 420px;
+    background: var(--accent-dim);
 }
 
 .contact-video-fallback,
@@ -1442,8 +1456,18 @@ html:not(.reduce-motion) .hero-scroll-cue span {
     inset: 0;
     width: 100%;
     height: 100%;
-    object-fit: cover;
     display: block;
+}
+
+.contact-video {
+    object-fit: cover;
+}
+
+/* The fallback photo (near-square, not 16:9 like the video) uses contain,
+   not cover — a complete, uncropped photo letterboxed on the dark card
+   background, rather than a cropped fill. */
+.contact-video-fallback {
+    object-fit: contain;
 }
 
 .contact-video {
@@ -1827,6 +1851,25 @@ html:not(.reduce-motion) .hero-scroll-cue span {
 
 
 /* Responsive */
+
+/* A shorter/more square viewport (e.g. 1024x768) makes cover-fit crop the
+   photo differently than a wide 16:9-ish desktop window (e.g. 1440x900),
+   even at the same background-position percentage — the face can end up
+   sliding left under the headline. This range pushes the crop further
+   right specifically for that in-between band. */
+@media (min-width: 969px) and (max-width: 1140px) {
+    .hero-visual-base {
+        inset: 0 -30% 0 30%;
+        background-position: 72% 22%;
+    }
+
+    .hero-visual-video {
+        inset: 0 -30% 0 30%;
+        width: calc(100% + 30%);
+        object-position: 72% 22%;
+    }
+}
+
 @media (max-width: 968px) {
     .bg-animation .orb {
         filter: blur(50px);
@@ -1843,21 +1886,8 @@ html:not(.reduce-motion) .hero-scroll-cue span {
         grid-template-columns: 1fr;
     }
 
-    .about-personal {
-        flex-direction: column;
-    }
-
     .about-portrait {
-        width: 140px;
-        flex-basis: 140px;
-    }
-
-    .experience-layout {
-        grid-template-columns: 1fr;
-    }
-
-    .experience-accent {
-        display: none;
+        max-width: 100%;
     }
 
     .navbar {
@@ -1899,68 +1929,94 @@ html:not(.reduce-motion) .hero-scroll-cue span {
 }
 
 /* ==========================================================================
-   Hero — Cyber Ronin responsive composition.
-   Desktop: two-column grid (copy+card | specs), image spotlight full-bleed.
-   <=768px: single column, specs panel stacks under the product card, the
-   cinematic image stays as a full-bleed background behind everything.
-   <=480px: compact type scale, smaller controls, safe-area padding, and the
-   spotlight radius itself shrinks (see cyber-spotlight.js) so it still
-   reads as a deliberate effect rather than a full-screen wash on a small
-   screen.
+   Hero — mobile composition.
+   A full-bleed photo behind full-width headline text cannot avoid the
+   headline crossing the face on a real photo (the photo shows its complete
+   height on a portrait screen, and the face sits in that same upper band
+   where a single-column headline naturally falls) — so mobile uses a
+   different, intentional structure instead of forcing the desktop
+   composition into a narrow crop: the photo/video is its own block at the
+   top (complete, uncropped height-wise), and the headline sits below it on
+   the normal page background, in dark text like the rest of the site, never
+   over the photo at all.
    ========================================================================== */
 @media (max-width: 768px) {
-    .hero-visual-base {
-        inset: 0;
-        /* On a tall/narrow viewport, cover-fit is height-constrained, so the
-           full image height (and with it, the full face) always shows —
-           only the horizontal slice changes with position-x. 35% centers
-           the actual face position in the source photo (measured, not
-           guessed) within that slice. */
-        background-position: 35% top;
+    .hero {
+        display: flex;
+        flex-direction: column;
+        align-items: stretch;
+        padding: 0 0 48px;
+        min-height: 0;
     }
 
+    .hero-visual {
+        position: relative;
+        inset: auto;
+        height: 52vh;
+        min-height: 360px;
+        width: 100%;
+        z-index: auto;
+    }
+
+    .hero-visual-base,
     .hero-visual-video {
         inset: 0;
         width: 100%;
         height: 100%;
         top: 0;
         object-fit: cover;
-        object-position: 35% top;
-    }
-
-    .hero {
-        padding: 110px 24px 56px;
-        padding-top: calc(110px + env(safe-area-inset-top, 0px));
-        padding-left: calc(24px + env(safe-area-inset-left, 0px));
-        padding-right: calc(24px + env(safe-area-inset-right, 0px));
-        align-items: flex-end;
-        min-height: 100svh;
-    }
-
-    .hero-content {
-        grid-template-columns: 1fr;
-        gap: 28px;
-    }
-
-    .hero-visual-scrim {
-        /* A cinematic top vignette, not a flat wash: solid enough behind the
-           headline/tagline (which always sit near the top on a single-column
-           mobile layout) to guarantee contrast there, but fading out by
-           mid-hero so the photo/video keeps its real color where the CTAs
-           and specs panel — which have their own opaque glass backgrounds —
-           don't need it. */
-        background:
-            linear-gradient(180deg, var(--bg-base) 0%, rgba(243, 248, 253, 0.92) 14%, rgba(243, 248, 253, 0.6) 34%, rgba(243, 248, 253, 0.22) 52%, transparent 68%),
-            radial-gradient(140% 60% at 50% 0%, rgba(255, 255, 255, 0.3), transparent 60%);
-    }
-
-    .hero-title {
-        text-shadow: 0 2px 4px rgba(243, 248, 253, 0.95), 0 0 20px rgba(243, 248, 253, 0.9);
+        background-position: 32% 22%;
+        object-position: 32% 22%;
     }
 
     .hero-frame-counter {
-        top: calc(88px + env(safe-area-inset-top, 0px));
-        right: calc(24px + env(safe-area-inset-right, 0px));
+        top: calc(16px + env(safe-area-inset-top, 0px));
+        right: calc(16px + env(safe-area-inset-right, 0px));
+    }
+
+    /* The image block still gets a light vignette at its own bottom edge
+       (a smooth handoff into the page background), not a contrast scrim —
+       the headline no longer sits on top of the photo, so it doesn't need
+       one. */
+    .hero-visual-scrim {
+        background: linear-gradient(180deg, transparent 60%, var(--bg-base) 100%);
+    }
+
+    .hero-scroll-cue {
+        display: none;
+    }
+
+    .hero-content {
+        position: relative;
+        z-index: auto;
+        grid-template-columns: 1fr;
+        gap: 28px;
+        padding: 32px 24px 0;
+        padding-left: calc(24px + env(safe-area-inset-left, 0px));
+        padding-right: calc(24px + env(safe-area-inset-right, 0px));
+    }
+
+    /* Back to the site's normal dark-on-light text — this content now sits
+       on the plain page background, not on the photo. */
+    .hero-kicker {
+        color: var(--text-muted);
+    }
+
+    .hero-title {
+        color: var(--text-primary);
+        text-shadow: none;
+    }
+
+    .hero-title .highlight {
+        background: linear-gradient(135deg, var(--accent), var(--accent-dim));
+        background-size: 200% auto;
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+    }
+
+    .hero-copy {
+        color: var(--text-secondary);
     }
 
     .specs-panel {
