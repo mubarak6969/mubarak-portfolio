@@ -292,7 +292,7 @@
     // Active nav-link tracking while scrolling
     // ---------------------------------------------------------------
     function initNavTracking() {
-        var sections = ['home', 'about', 'experience', 'projects', 'services', 'contact'];
+        var sections = ['home', 'about', 'experience', 'projects', 'services', 'enquiry-system', 'contact'];
         sections.forEach(function (id) {
             var el = document.getElementById(id);
             var link = document.querySelector('.nav-link[data-section="' + id + '"]');
